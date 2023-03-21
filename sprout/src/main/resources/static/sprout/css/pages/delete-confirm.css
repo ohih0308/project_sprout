@@ -1,0 +1,42 @@
+.page {
+    justify-content: center;
+    align-items: center;
+}
+
+.card {
+    width: 400px;
+    height: 400px;
+    background: rgba(230, 230, 230);
+
+    align-items: center;
+}
+
+.message {
+    margin: 10% 10%;
+    padding-top: 20%;
+
+    height: 10%;
+    width: 80%;
+
+    font-size: 1.5rem;
+
+    align-items: center;
+}
+
+.buttonSet {
+    margin: 10% 10%;
+
+    height: 30%;
+    width: 80%;
+}
+
+.button {
+    margin: 10%;
+    width: 30%;
+
+    font-size: 1.5rem;
+}
+
+.button:hover {
+    font-weight: bold;
+}

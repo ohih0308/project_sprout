@@ -1,0 +1,151 @@
+page > .webName {
+    margin: 30px auto 50px auto;
+    padding: 5px;
+
+    width: 400px;
+    height: 150px;
+
+    text-align: center;
+    font-size: 8rem;
+}
+
+.registerForm {
+    margin: 0 auto;
+    padding: 5px;
+
+    width: 400px;
+
+    border-radius: 5px;
+
+    background-color: rgba(230, 230, 230);
+}
+
+.field {
+    margin: 5px 0;
+    padding-left: 5px;
+
+    height: 20px;
+
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.userInput {
+    padding: 5px;
+
+    height: 30px;
+}
+
+#email {
+    margin-right: auto;
+
+    width: 300px;
+    height: 30px;
+}
+
+.emailVerificationCodeSendButton {
+    width: 80px;
+    height: 30px;
+
+    font-size: 0.9rem;
+}
+
+.loadingImg {
+    display: none;
+
+    margin: 5px auto;
+    height: 30px;
+}
+
+.emailVerification {
+    display: none;
+
+    padding: 5px;
+
+    height: 30px;
+}
+
+.emailVerificationCodeInput {
+    margin-right: 5px;
+
+    width: 260px;
+    height: 100%;
+}
+
+.emailVerificationButton {
+    width: 120px;
+    height: 100%;
+}
+
+#pw, #pwConfirmation, #name {
+    width: 100%;
+    height: 30px;
+
+    background-color: white;
+}
+
+
+.submitButton {
+    margin: 15px auto 5px auto;
+
+    width: calc(100% - 10px);
+    height: 40px;
+
+    font-size: 1.2rem;
+}
+
+.selectedFile {
+    width: 250px;
+    height: 30px;
+
+    text-overflow: ellipsis;
+}
+
+.multipartFile {
+    display: flex;
+
+    margin: auto auto;
+
+    width: 100px;
+    height: 30px;
+
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 5px;
+
+    font-size: 0.9rem;
+
+    background-color: buttonface;
+}
+
+#multipartFile {
+    position: absolute;
+    width: 0;
+    height: 0;
+    padding: 0;
+    overflow: hidden;
+    border: 0;
+}
+
+.errorMessage {
+    margin: 5px 0 10px 0;
+    padding-left: 5px;
+
+    color: red;
+}
+
+.fieldError {
+    border: 1px solid red;
+}
+
+
+.multipartFile:active {
+    border: 1px solid white;
+}
+
+.message {
+    display: none;
+
+    padding-left: 5px;
+}

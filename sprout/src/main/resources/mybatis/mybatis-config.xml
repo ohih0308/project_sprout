@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <typeAliases>
+        <typeAlias type="ohih.sprout.domain.post.dto.CurrentPostDto" alias="CurrentPostDto"/>
+
+        <typeAlias type="ohih.sprout.domain.file.dto.FileDto" alias="FileDto"/>
+
+        <typeAlias type="ohih.sprout.domain.user.dto.UserRegisterDto" alias="UserRegisterDto"/>
+        <typeAlias type="ohih.sprout.domain.user.dto.LoginFormDto" alias="LoginFormDto"/>
+        <typeAlias type="ohih.sprout.domain.user.dto.LoginMemberDto" alias="LoginMemberDto"/>
+
+        <typeAlias type="ohih.sprout.domain.category.dto.CategoryDto" alias="CategoryDto"/>
+        <typeAlias type="ohih.sprout.domain.board.dto.BoardDto" alias="BoardDto"/>
+        <typeAlias type="ohih.sprout.domain.post.dto.PostListDto" alias="PostListDto"/>
+
+        <typeAlias type="ohih.sprout.domain.post.dto.PostDto" alias="PostDto"/>
+        <typeAlias type="ohih.sprout.domain.post.dto.PostEditDto" alias="PostEditDto"/>
+        <typeAlias type="ohih.sprout.domain.post.dto.PostAccessAuthorityDto" alias="PostAccessAuthorityDto"/>
+
+        <typeAlias type="ohih.sprout.domain.post.dto.ReputationDto" alias="ReputationDto"/>
+        <typeAlias type="ohih.sprout.domain.post.dto.ReputationCountDto" alias="ReputationCountDto"/>
+
+        <typeAlias type="ohih.sprout.domain.comment.dto.CommentListDto" alias="CommentListDto"/>
+        <typeAlias type="ohih.sprout.domain.comment.dto.CommentWriteDto" alias="CommentWriteDto"/>
+        <typeAlias type="ohih.sprout.domain.comment.dto.CommentAccessAuthority" alias="CommentAccessAuthority"/>
+
+        <typeAlias type="ohih.sprout.domain.diary.dto.DiaryConfigUpdateDto" alias="DiaryConfigUpdateDto"/>
+        <typeAlias type="ohih.sprout.domain.diary.dto.DiaryListDto" alias="DiaryListDto"/>
+        <typeAlias type="ohih.sprout.domain.diary.dto.DiaryEditDto" alias="DiaryEditDto"/>
+        <typeAlias type="ohih.sprout.domain.diary.dto.DiaryAccessAuthorityDto" alias="DiaryAccessAuthorityDto"/>
+
+        <typeAlias type="ohih.sprout.domain.myPage.dto.MyPostListDto" alias="MyPostListDto"/>
+        <typeAlias type="ohih.sprout.domain.myPage.dto.MyCommentListDto" alias="MyCommentListDto"/>
+        <typeAlias type="ohih.sprout.domain.myPage.dto.CountsByBoardNameDto" alias="CountsByBoardNameDto"/>
+        <typeAlias type="ohih.sprout.domain.myPage.dto.UserInfoDto" alias="UserInfoDto"/>
+
+        <typeAlias type="ohih.sprout.domain.file.dto.EventFileDto" alias="EventFileDto"/>
+        <typeAlias type="ohih.sprout.domain.file.dto.AdFileDto" alias="AdFileDto"/>
+    </typeAliases>
+
+    <mappers>
+        <mapper resource="mybatis/mappers/FileMapper.xml"/>
+        <mapper resource="mybatis/mappers/UserMapper.xml"/>
+        <mapper resource="mybatis/mappers/CategoryMapper.xml"/>
+        <mapper resource="mybatis/mappers/BoardMapper.xml"/>
+        <mapper resource="mybatis/mappers/PostMapper.xml"/>
+        <mapper resource="mybatis/mappers/CommentMapper.xml"/>
+        <mapper resource="mybatis/mappers/DiaryMapper.xml"/>
+        <mapper resource="mybatis/mappers/MyPageMapper.xml"/>
+    </mappers>
+</configuration>

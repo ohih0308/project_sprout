@@ -1,0 +1,117 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{/layout/layout :: layout(~{:: title}, ~{:: privateResources}, ~{:: page})}">
+    <head>
+        <title th:text="#{webName}">
+            Sprout
+        </title>
+
+        <privateResources>
+            <script src="/jquery-3.6.0/jquery-3.6.0.min.js" type="text/javascript"></script>
+
+            <link href="/sprout/css/pages/my-page.css" rel="stylesheet"/>
+
+            <script src="/sprout/js/pages/my-page.js" type="text/javascript"></script>
+            <script src="/sprout/js/util.js" type="text/javascript"></script>
+        </privateResources>
+    </head>
+
+    <body>
+        <page class="page column">
+            <div class="halfRow row">
+                <div class="section" th:if="${diaryActivation == true}">
+                    <div class="tag">
+                        <a th:href="@{/diary/{owner} (owner = ${name})}" th:text="#{DIARY}"></a>
+                    </div>
+
+                    <div class="clockWrapper">
+                        <span class="clock"></span>
+                    </div>
+
+                    <form class="diaryInput column" action="/diary/write" method="post">
+                        <input type="hidden" name="owner" th:value="${ownerId}"/>
+                        <div th:if="${session.loginMember == null}" class="userInfoInput row">
+                            <input class="userInfo" type="text" name="author" th:placeholder="#{name}"/>
+                            <input class="userInfo" type="password" name="pw" th:placeholder="#{pw}"/>
+                        </div>
+                        <div th:unless="${session.loginMember == null}" class="userInfoInput row">
+                            <input class="userInfo" type="text" name="author" th:value="${session.loginMember.name}"
+                                   readonly/>
+                        </div>
+                        <textarea class="textInput" name="text"></textarea>
+
+                        <div class="privateConfig row">
+                            <span th:text="#{PRIVATE}"></span>
+                            <input class="privatePost" type="checkbox" value="false" name="privatePost"
+                                   onchange="checkBox()">
+                        </div>
+
+                        <div class="diarySubmitButtonWrapper">
+                            <button class="diarySubmitButton" type="button" th:text="#{WRITE}"
+                                    onclick="writeDiary()"></button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="section" th:unless="${diaryActivation == true}">
+                    Diary is prohibited to access by owner
+                </div>
+
+                <div class="section">
+                    <div class="tag">
+                        <a th:href="@{/my-page/{name}/record/post (name = ${owner})}" th:text="#{POST_RECORD}"></a>
+                    </div>
+
+                    <div class="myCount">
+                        <span th:text="${postCount}"/>
+                    </div>
+
+                    <div class="myList">
+                        <div class="listItem row" th:each="post : ${postList}">
+                            <div class="text">
+                                <span th:text="${post.subject}"/>
+                            </div>
+
+                            <div class="regDate">
+                                <span th:text="${#dates.format(post.regDate, 'yyyy.MM.dd')}"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="halfRow row">
+                <div class="section">
+                    <div class="tag">
+                        <a th:href="@{/my-page/{name}/record/comment (name = ${owner})}"
+                           th:text="#{COMMENT_RECORD}"></a>
+                    </div>
+
+                    <div class="myCount">
+                        <span th:text="${commentCount}"/>
+                    </div>
+
+                    <div class="myList">
+                        <div class="listItem row" th:each="comment : ${commentList}">
+                            <div class="text">
+                                <span th:text="${comment.text}"/>
+                            </div>
+                            <div class="regDate">
+                                <span th:text="${#dates.format(comment.regDate, 'yyyy.MM.dd')}"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <div class="tag row">
+                        <a th:text="#{CONFIGURATION}" th:href="@{/my-page/{name}/config (name = ${name})}"/>
+                    </div>
+
+                    <div class="configNotification row">
+                        <div class="configNotificationText" th:text="#{configNotification}"/>
+                    </div>
+                </div>
+            </div>
+        </page>
+    </body>
+</html>

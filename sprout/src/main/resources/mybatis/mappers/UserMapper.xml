@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ohih.sprout.domain.user.mapper.UserMapper">
+
+    <!--  int checkEmailDuplicated(String email);  -->
+    <select id="checkEmailDuplicated" parameterType="String" resultType="int">
+        select count(*)
+        from user
+        where email = #{email};
+    </select>
+
+    <!--  int checkNameDuplicated(String name);  -->
+    <select id="checkNameDuplicated" parameterType="String" resultType="int">
+        select count(*)
+        from user
+        where name = #{name};
+    </select>
+
+
+    <!--  int register(UserRegisterDto userRegisterDto);  -->
+    <insert id="register" parameterType="UserRegisterDto" useGeneratedKeys="true" keyProperty="userId">
+        insert into user (userType, email, name, pw, regDate)
+        values (2, #{email}, #{name}, #{pw}, now());
+    </insert>
+
+
+    <!--  LoginMember login(LoginForm loginForm);  -->
+    <select id="login" parameterType="LoginFormDto" resultType="LoginMemberDto">
+        select u.userId, u.userType, u.email, u.name, p.savedFileName, p.ext
+        from user as u
+                 left join (select userId, savedFileName, ext from profileImage) as p
+                           on u.userId = p.userId
+        where u.email = #{email}
+          and pw = #{pw};
+    </select>
+
+
+    <!--  int updateName(Map map);  -->
+    <update id="updateName" parameterType="Map">
+        update user
+        set name = #{name}
+        where userId = #{userId}
+    </update>
+
+    <!--  int updatePw(Map map);  -->
+    <update id="updatePw" parameterType="Map">
+        update user
+        set pw = #{pw}
+        where userId = #{userId};
+    </update>
+
+    <!--  Long getUserIdByName(String name);  -->
+    <select id="getUserIdByName" parameterType="String" resultType="Long">
+        select userId
+        from user
+        where name = #{name};
+    </select>
+
+    <!--  void deactivateAccount(Long userId);  -->
+    <delete id="deactivateAccount" parameterType="Long">
+        delete
+        from user
+        where userId = #{userId};
+    </delete>
+</mapper>

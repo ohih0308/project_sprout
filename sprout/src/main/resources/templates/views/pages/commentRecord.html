@@ -1,0 +1,71 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{/layout/layout :: layout(~{:: title}, ~{:: privateResources}, ~{:: page})}">
+    <head>
+        <title th:text="#{webName}">
+            Sprout
+        </title>
+
+        <privateResources>
+            <link href="/sprout/css/pages/commentRecord.css" rel="stylesheet"/>
+
+            <script type="text/javascript" src="/sprout/js/util.js"></script>
+            <script src="/sprout/js/pages/commentRecord.js" type="text/javascript"></script>
+            <script src="/jquery-3.6.0/jquery-3.6.0.min.js" type="text/javascript"></script>
+        </privateResources>
+    </head>
+
+    <body>
+        <page class="page column">
+            <input id="owner" type="hidden" th:value="${owner}"/>
+
+            <div class="leftArrowWrapper row">
+                <img src="/img/left-arrow.png" class="leftArrow" th:onclick="|location.href='@{/my-page/{name} (name = ${name})}'|"/>
+            </div>
+
+            <div class="record row">
+                <div class="boardList column">
+                    <div class="board row" th:each="board : ${CountByBoardNameComment}"
+                         th:data-value="${board.boardName}">
+                        <span th:text="${board.boardName} + ' ('+ ${board.cnt} + ')'"/>
+                    </div>
+                </div>
+
+                <div class="content column">
+                    <div class="table column">
+                        <div class="thead row">
+                            <input type="hidden" class="boardName"/>
+                            <div class="subject">
+                                <span>Comment</span>
+                            </div>
+
+                            <div class="commentInfo column">
+                                <div class="dateWrapper row">
+                                    <img class="dateIcon" src="/img/clock.svg"/>
+                                    <span class="date">Registration Date</span>
+                                </div>
+                                <div class="postIdWrapper row">
+                                    <img class="postIdIcon" src="/img/id-card.png"/>
+                                    <span class="postId">Post ID</span>
+                                </div>
+                            </div>
+
+                            <div class="delete column">
+                                <button type="button" class="deleteButton row"><span>X</span></button>
+                                <hr class="line"/>
+                                <input class="selectAll row" type="checkbox"/>
+                            </div>
+                        </div>
+
+                        <div class="tbody column">
+                            Please select a board
+                        </div>
+                    </div>
+
+                    <div class="commentPaging row">
+
+                    </div>
+                </div>
+            </div>
+        </page>
+    </body>
+</html>

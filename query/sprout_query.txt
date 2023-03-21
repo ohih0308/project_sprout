@@ -1,0 +1,126 @@
+create table user (
+	userId bigint primary key auto_increment,
+	userType tinyint not null,
+	email varchar(50) unique not null,
+	name varchar(50) unique not null,
+	pw varchar(50) not null,
+	regDate datetime not null);
+
+
+
+create table category (
+	categoryName varchar(50) primary key);
+
+
+
+create table board (
+	categoryName varchar(50) not null,
+	boardName varchar(50) primary key not null);
+
+
+
+create table post (
+	postId bigint primary key auto_increment,
+	
+	userType tinyint not null,
+	userId bigint null,
+	userIp varchar(50) not null,
+	author varchar(50) not null,
+	pw varchar(50) null,
+
+	boardName varchar(50) not null,
+	subject varchar(3000) not null,
+	text mediumtext not null,
+	views bigint not null,
+	regDate datetime not null,
+	modDate datetime not null);
+
+
+
+create table comment (
+	commentId bigint primary key auto_increment,
+	
+	userType tinyint not null,
+	userId bigint null,
+	userIp varchar(50) not null,
+	author varchar(50) not null,
+	pw varchar(50) null,
+
+	postId bigint not null,
+	text varchar(3000) not null,
+	
+	regDate datetime not null);
+
+
+
+create table profileImage (
+	userId bigint unique not null,
+	oriFileName varchar(100) not null,
+	savedFileName varchar(100) not null,
+	ext varchar(50) not null,
+	size bigint not null);
+
+
+
+create table attachedFile (
+	postId bigint not null,
+	oriFileName varchar(100) not null,
+	savedFileName varchar(100) not null,
+	ext varchar(50) not null,
+	size bigint not null,
+	dir varchar(100) null);
+
+
+
+
+create table diary (
+	owner bigint not null,
+	
+	userType tinyint not null,
+	userId bigint null,
+	userIp varchar(50) not null,
+	author varchar(50) not null,
+	pw varchar(50) null,
+
+	postId bigint primary key auto_increment,
+	openPost bit not null,
+	text varchar(3000) not null,
+	regDate datetime not null);
+	
+
+
+create table diaryConfig (
+	userId bigint unique not null,
+
+	diaryActivation bit not null,
+
+	privateRead bit not null,
+	privateWrite bit not null);
+	
+	
+
+create table reputation (
+	type bit not null,
+	postId bigint not null,
+	ip varchar(50) not null);
+
+
+
+create table eventFiles(
+	eventName varchar(100) not null,
+	oriFileName varchar(100) not null,
+	savedFileName varchar(100) primary key,
+	ext varchar(50) not null,
+	size bigint not null,
+	link varchar(100) not null);
+
+
+
+create table adFiles(
+	provider varchar(100) not null,
+	oriFileName varchar(100) not null,
+	savedFileName varchar(100) primary key,
+	ext varchar(50) not null,
+	size bigint not null,
+	regDate datetime not null,
+	link varchar(100) not null);

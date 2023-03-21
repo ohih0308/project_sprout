@@ -1,0 +1,210 @@
+.leftArrowWrapper {
+    padding: 10px 0 10px 10px;
+
+    justify-content: start;
+    align-items: center;
+
+    height: 20px;
+
+    font-size: 1.5rem;
+}
+
+.leftArrow {
+    height: 15px;
+    transition: 0.1s;
+}
+
+.leftArrow:hover {
+    height: 20px;
+}
+
+.configSection {
+    height: calc(100% - 40px);
+}
+
+.configSideBar {
+    margin-right: 10px;
+    padding: 10px;
+
+    width: calc(200px - 10px - 20px - 6px);
+
+    border: 3px solid rgba(230, 230, 230);
+
+    border-radius: 10px;
+}
+
+.configNav {
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    height: 100px;
+
+
+    font-size: 1.2rem;
+
+    transition: 0.2s;
+}
+
+.configNav:hover {
+    font-weight: bold;
+
+    font-size: 1.3rem;
+    letter-spacing: 1px;
+}
+
+
+.configBody {
+    justify-content: center;
+    align-items: center;
+
+    width: calc(100% - 200px);
+}
+
+
+.userInfoCard, .editInfoCard, .deactivateCard {
+    display: none;
+}
+
+.cardHead {
+    justify-content: center;
+    align-items: center;
+
+    padding: 5px;
+    height: 40px;
+
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.configCard {
+    padding: 10px;
+    width: 400px;
+
+    background-color: rgba(230, 230, 230);
+
+    border-radius: 10px;
+}
+
+.field {
+    margin: 5px 0;
+    padding-left: 5px;
+
+    height: 20px;
+
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.userInfoValue {
+    margin-bottom: 10px;
+    padding: 5px;
+
+    border-bottom: 1px solid black;
+}
+
+.profileImage {
+    padding: 5px;
+
+    width: 30px;
+    height: 30px;
+
+    /*border-radius: 0;*/
+}
+
+.deactivateButtonWrapper {
+    display: none;
+
+    justify-content: center;
+    align-items: center;
+}
+
+.deactivateButton {
+    width: 80px;
+    height: 40px;
+}
+
+.accountConfig {
+    justify-content: space-between;
+
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    height: 150px;
+
+    border-bottom: 3px double black;
+}
+
+.userInfoInput {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 35px;
+
+    font-weight: bold;
+}
+
+.userInfoType {
+    width: 100px;
+}
+
+.input {
+    margin-left: 10px;
+    padding-left: 5px;
+
+    width: 180px;
+    height: 30px;
+
+    font-size: 0.9rem;
+}
+
+.submitButton {
+    width: 80px;
+    height: 30px;
+
+    font-size: 0.9rem;
+}
+
+.imageInput {
+    justify-content: center;
+    align-items: center;
+
+    width: 178px;
+    height: 28px;
+
+    border: 1px solid black;
+    border-radius: 10px;
+
+    transition: 0.1s;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.imageInput:hover {
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+#profileImage {
+    display: none;
+}
+
+.diaryConfigType {
+    width: 100px;
+    font-size: 0.8rem;
+}
+
+.subTag {
+    margin-bottom: 10px;
+    height: 30px;
+
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.diaryConfigInput {
+    justify-content: space-evenly;
+    align-items: center;
+}

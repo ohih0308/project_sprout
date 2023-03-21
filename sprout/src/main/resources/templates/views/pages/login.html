@@ -1,0 +1,38 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{/layout/layout :: layout(~{:: title}, ~{:: privateResources}, ~{:: page})}">
+    <head>
+        <title th:text="Login">
+        </title>
+
+        <privateResources>
+            <script src="/sprout/js/pages/login.js" type="text/javascript"></script>
+            <link href="/sprout/css/pages/login.css" rel="stylesheet"/>
+        </privateResources>
+    </head>
+
+    <body>
+        <page class="page column">
+
+            <div class="webName" th:text="#{webName}">
+            </div>
+
+            <form class="loginForm column" action="/user/login" method="post" th:object="${loginFormDto}">
+                <div th:if="${#fields.hasGlobalErrors()}">
+                    <div class="errorMessage" th:each="err: ${#fields.globalErrors()}" th:text="${err}"></div>
+                </div>
+
+                <div class="field" th:text="#{email}">Email</div>
+                <div class="userInput">
+                    <input type="email" th:field="*{email}"/>
+                </div>
+
+                <div class="field" th:text="#{pw}">Password</div>
+                <div class="userInput">
+                    <input type="password" th:field="*{pw}"/>
+                </div>
+
+                <button class="submitButton" th:text="#{LOGIN}"></button>
+            </form>
+        </page>
+    </body>
+</html>

@@ -1,0 +1,212 @@
+/* board event section */
+.boardEventSection {
+    margin-bottom: 5px;
+    padding: 10px;
+
+    min-height: 160px;
+
+    border-radius: 10px;
+    background-color: rgba(230, 230, 230);
+}
+
+
+/* board name*/
+.boardName {
+    display: flex;
+
+    align-items: center;
+
+    margin: 5px 0;
+    padding-left: 10px;
+    padding-bottom: 5px;
+
+    border-bottom: 5px black double;
+
+    min-height: 50px;
+
+    font-size: 2.5rem;
+}
+
+
+/* new post button*/
+.postWriteButtonWrapper {
+    justify-content: end;
+    align-items: center;
+
+    margin-bottom: 5px;
+
+    min-height: 20px;
+}
+
+.postWriteButton {
+    width: 120px;
+    height: 20px;
+
+    border: 1px solid rgba(230, 230, 230);;
+}
+
+
+/* post list*/
+.postList {
+    margin: 5px 0;
+}
+
+
+/* post */
+.postHead {
+    margin-bottom: 5px;
+
+    height: 40px;
+}
+
+.postTitle {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+
+    padding-left: 10px;
+
+    width: calc(100% - 280px);
+
+    font-size: 0.9rem;
+
+    border-radius: 5px;
+    border: 1px solid rgba(230, 230, 230);
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.postTitle > span {
+    display: block;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+.viewIcon, .dateIcon {
+    margin-right: 5px;
+    padding: 3px;
+
+    width: 14px;
+    height: 14px;
+}
+
+.date, .view {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 3px;
+
+    width: 84px;
+    height: 19px;
+}
+
+.postInfo > .dateWrapper, .postInfo > .viewWrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 3px 5px 2px 5px;
+    height: 15px;
+
+    font-size: 0.7rem;
+}
+
+.postInfo, .userInfo {
+    margin-left: 5px;
+
+    width: 130px;
+
+    border-radius: 5px;
+    border: 1px solid rgba(230, 230, 230);
+}
+
+.userIconWrapper {
+    padding: 5px;
+
+    width: 30px;
+    height: 30px;
+}
+
+.userIcon {
+    /*border-radius: 50%;*/
+}
+
+.postAuthor {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 5px;
+
+    width: calc(100% - 50px);
+}
+
+
+/* paging */
+.pagingWrapper {
+    justify-content: center;
+    align-items: center;
+
+    margin: 5px 0;
+
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+
+    min-height: 30px;
+}
+
+.paging {
+    margin: 0 5px;
+}
+
+.paging:hover {
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+
+/* search */
+.searchWrapper {
+    justify-content: center;
+
+    margin: 5px 0 1px 0;
+    padding: 20px 0;
+
+    min-height: 30px;
+}
+
+.searchFilter, .searchValue, .searchButton {
+    min-height: 30px;
+}
+
+.searchFilter {
+    margin-right: 5px;
+
+    width: 70px;
+
+    border: 1px solid rgba(230, 230, 230);
+}
+
+.searchValue {
+    margin: 0 5px;
+
+    width: calc((100% - 130px) * 0.4);
+
+    border: 1px solid rgba(230, 230, 230);
+}
+
+.searchButton {
+    margin-left: 5px;
+
+    width: 70px;
+
+    border: 1px solid rgba(230, 230, 230);
+    background: none;
+}

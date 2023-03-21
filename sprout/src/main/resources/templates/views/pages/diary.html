@@ -1,0 +1,96 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{/layout/layout :: layout(~{:: title}, ~{:: privateResources}, ~{:: page})}">
+    <head>
+        <title th:text="#{webName}">
+            Sprout
+        </title>
+
+        <privateResources>
+            <script src="/jquery-3.6.0/jquery-3.6.0.min.js" type="text/javascript"></script>
+
+            <link href="/sprout/css/pages/diary.css" rel="stylesheet"/>
+            <script src="/sprout/js/pages/diary.js" type="text/javascript"></script>
+        </privateResources>
+    </head>
+
+    <body>
+        <page class="page column">
+            <input id="owner" type="hidden" th:value="${owner}"/>
+
+            <div class="leftArrowWrapper row">
+                <img src="/img/left-arrow.png" class="leftArrow"
+                     th:onclick="|location.href='@{/my-page/{name} (name = ${name})}'|"/>
+            </div>
+
+            <div class="topRow row">
+                <div class="sum">
+                    <div class="tag row">
+                        <span th:text="Today"/>
+                    </div>
+                    <div class="sumCount" th:text="${todayDiaryCount}+'/'+${totalDiaryCount}"/>
+                </div>
+                <form class="diaryInput row" action="/diary/write" method="post">
+                    <input type="hidden" name="owner" th:value="${ownerId}"/>
+                    <div class="column newDiary_firstColumn">
+                        <div th:if="${session.loginMember == null}" class="userInfoInput column">
+                            <input class="nameInput" type="text" name="author" th:placeholder="#{name}"/>
+                            <input class="pwInput" type="password" name="pw" th:placeholder="#{pw}"/>
+                        </div>
+
+                        <div th:unless="${session.loginMember == null}" class="userInfoInput column">
+                            <input class="nameInput" type="text" name="author" th:value="${session.loginMember.name}"
+                                   readonly/>
+                        </div>
+                        <div class="privatePostWrapper row">
+                            <div class="label" th:text="#{PRIVATE}"/>
+                            <input class="privatePostInput" type="checkbox" name="privatePost"
+                                   value="false" onchange="checkBox()"/>
+                        </div>
+                    </div>
+
+                    <textarea class="textInput" name="text"></textarea>
+
+                    <div class="column newDiary_thirdColumn">
+                        <button class="submitButton" type="button" th:text="#{WRITE}"
+                                onclick="writeDiary()"></button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="bottomRow column">
+                <div class="diaryList row">
+                    <div class="row diary" th:each="diary : ${diaryList}">
+                        <div class="text privatePost row" th:if="${diary.text == null}">
+                            <span th:text="#{PRIVATE_POST}"/>
+                        </div>
+                        <div class="text" th:unless="${diary.text == null}" th:text="${diary.text}"/>
+                        <div class="column diary_secondColumn">
+                            <div class="name" th:text="${diary.author}"/>
+                            <div class="ip" th:text="${diary.userIp}"/>
+                            <div class="regDateWrapper column">
+                                <div class="regDate" th:text="${#dates.format(diary.regDate, 'yyyy.MM.dd')}"/>
+                                <div class="regDate" th:text="${#dates.format(diary.regDate, 'hh:mm:ss')}"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pagingWrapper row">
+                    <div th:if="${paging.startPage >= paging.pages}" class="previous" th:text="#{<}">
+                    </div>
+
+                    <div th:each="page : ${#numbers.sequence(paging.startPage, paging.endPage)}" class="paging"
+                         th:data-value="${page}" th:text="${page+1}">
+                    </div>
+
+                    <div th:if="${paging.endPage < paging.totalPages - 1}" class="next" th:text="#{>}">
+                    </div>
+                </div>
+            </div>
+
+            <form class="pageForm" th:action="@{/diary/{name} (name = ${owner})}" method="get">
+                <input type="hidden" class="presentPage" name="presentPage" th:value="0"/>
+            </form>
+        </page>
+    </body>
+</html>

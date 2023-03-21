@@ -1,0 +1,188 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{/layout/layout :: layout(~{:: title}, ~{:: privateResources}, ~{:: page})}">
+    <head>
+        <title th:text="${post.subject}">
+        </title>
+
+        <privateResources>
+            <script src="/jquery-3.6.0/jquery-3.6.0.min.js" type="text/javascript"></script>
+
+            <link href="/sprout/css/pages/post.css" rel="stylesheet"/>
+
+            <script type="text/javascript" src="/sprout/js/pages/post.js"></script>
+
+            <script type="text/javascript" src="/sprout/js/util.js"></script>
+        </privateResources>
+    </head>
+
+    <body>
+        <page class="page column overflow">
+            <div class="postWriteButtonWrapper row">
+                <button class="postWriteButton" type="button"
+                        th:onclick="|location.href='@{/post/write-form?boardName={boardName} (boardName=${post.boardName})}'|">
+                    Write
+                </button>
+            </div>
+
+            <div class="boardName">
+            <span th:text="${post.boardName}"
+                  th:onclick="|location.href='@{/board/{boardName} (boardName = ${post.boardName})}'|">
+            </span>
+            </div>
+
+            <div class="postIndexWrapper">
+                <span class="postIndex" th:text="${post.postId}"></span>
+            </div>
+
+            <div class="postHead row">
+                <div class="postTitle">
+                    <span th:text="${post.subject}"></span>
+                </div>
+
+                <div class="postInfo column">
+                    <div class="dateWrapper row">
+                        <img class="dateIcon" src="/img/clock.svg"/>
+                        <span class="date" th:text="${#dates.format(post.regDate, 'HH:mm:ss')}"></span>
+                    </div>
+                    <div class="viewWrapper row">
+                        <img class="viewIcon" src="/img/eye.png"/>
+                        <span class="view" th:text="${post.views}"></span>
+                    </div>
+                </div>
+
+                <div class="userInfo row">
+                    <div class="userIconWrapper">
+                        <img class="userIcon fit" th:if="${post.savedFileName != null}"
+                             th:src="@{/files/profileImages/{savedFileName}.{ext}
+                             (savedFileName = ${post.savedFileName}, ext = ${post.ext})}"/>
+                        <img class="userIcon fit" th:unless="${post.savedFileName != null}"
+                             th:src="@{/img/sprout.png}"/>
+                    </div>
+
+                    <div class="postAuthor">
+                        <a th:if="${post.userType != 0}" th:text="${post.author}"
+                           th:href="@{/my-page/{name} (name = ${post.author})}"></a>
+                        <span th:unless="${post.userType != 0}" th:text="${post.author}"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="postBody">
+                <div class="body" th:utext="${post.text}">
+                </div>
+            </div>
+
+            <div th:if="${#lists.size(attachedFileList)>0}" class="fileList column">
+                <div class="tag">File List</div>
+
+                <div class="files row">
+                    <a class="file" th:each="file:${attachedFileList}" th:text="${file.oriFileName}"
+                       th:onclick="fileDownload([[${file.savedFileName}]])">
+                    </a>
+                </div>
+            </div>
+
+            <div class="reputationButtonSet row">
+                <div class="reputationWrapper column">
+                    <img id="reputationUp" class="reputationIcon" src="/img/triangle.png"
+                         th:onclick="setReputation([[${post.postId}]], true)"/>
+                    <div class="reputation" th:text="${reputation.up}">12</div>
+                </div>
+
+                <div class="reputationWrapper column">
+                    <img id="reputationDown" class="reputationIcon" src="/img/invertedTriangle.png"
+                         th:onclick="setReputation([[${post.postId}]], false)"/>
+                    <div class="reputation" th:text="${reputation.down}">12</div>
+                </div>
+            </div>
+
+            <div class="postButtonSet row"
+                 th:if="${post.userType} == 0 or
+             ${post.userType} != 0 and ${session.loginMember} != null and ${session.loginMember.name} == ${post.author}">
+                <div class="postEditButtonWrapper">
+                    <button class="postEditButton" type="button">Edit
+                        <form class="postEditForm" th:action="@{/post/{postId}/edit-form (postId = ${post.postId})}"
+                              method="post">
+                            <input type="hidden" class="editFormPw" name="pw"/>
+                        </form>
+
+                        <script th:inline="javascript">
+                            document.querySelector(".postEditButton").addEventListener("click", () => {
+                                let userType = /*[[${post.userType}]]*/;
+                                let pw = "";
+
+                                if (userType == 0) {
+                                    document.querySelector(".editFormPw").value = prompt("Password.");
+                                }
+
+                                document.querySelector(".postEditForm").submit();
+                            });
+                        </script>
+                    </button>
+                </div>
+                <div class="postDeleteButtonWrapper ">
+                    <button class="postDeleteButton" type="button">Delete
+                        <form class="postDeleteForm" th:action="@{/post/{postId}/delete-form (postId = ${post.postId})}"
+                              method="post">
+                            <input type="hidden" name="boardName" th:value="${post.boardName}"/>
+                            <input type="hidden" class="deleteFormPw" name="pw"/>
+                        </form>
+
+                        <script th:inline="javascript">
+                            document.querySelector(".postDeleteButton").addEventListener("click", () => {
+                                let userType = /*[[${post.userType}]]*/;
+                                let pw = "";
+
+                                if (userType == 0) {
+                                    document.querySelector(".deleteFormPw").value = prompt("Password.");
+                                }
+
+                                document.querySelector(".postDeleteForm").submit();
+                            });
+                        </script>
+                    </button>
+                </div>
+            </div>
+
+            <form th:if="${session.loginMember == null}" class="newCommentForm column"
+                  method="post" action="/comment/anonymousWrite">
+                <input type="hidden" class="postId" name="postId" th:value="${post.postId}"/>
+
+                <div class="userInfoInput row">
+                    <input class="commentIdInput" type="text" name="author" placeholder="Name"/>
+                    <input class="commentPwInput" type="password" name="pw" placeholder="Password"/>
+                </div>
+
+                <textarea class="commentInput" name="text"></textarea>
+                <button class="newCommentSaveButton" type="button">Save</button>
+            </form>
+
+            <form th:unless="${session.loginMember == null}" class="newCommentForm column"
+                  method="post" action="/comment/memberWrite">
+                <input type="hidden" class="postId" name="postId" th:value="${post.postId}"/>
+
+                <div class="userInfoInput row">
+                    <input class="commentIdInput" type="text" th:value="${session.loginMember.name}" readonly/>
+                </div>
+
+                <textarea class="commentInput" name="text"></textarea>
+                <button class="newCommentSaveButton" type="button">Save</button>
+            </form>
+
+            <div class="totalCommentsCount row">
+                Comments (<span class="commentListSize" th:text="${post.cnt}">0</span>)
+            </div>
+
+            <div class="commentsList">
+            </div>
+
+            <div class="commentPaging row">
+            </div>
+
+
+            <form id="fileDownloadForm" action="/file/download" method="post">
+                <input id="savedFileName" type="hidden" name="savedFileName"/>
+            </form>
+        </page>
+    </body>
+</html>

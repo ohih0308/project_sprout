@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ohih.sprout.domain.board.mapper.BoardMapper">
+    <!--  List<BoardDto> getBoardList();  -->
+    <select id="getBoardList" resultType="BoardDto">
+        select *
+        from board;
+    </select>
+
+    <!--  Long getTotalCountByBoard(Map map);  -->
+    <select id="getTotalCountByBoard" parameterType="Map" resultType="Long">
+        select count(*)
+        from post
+        where boardName = #{boardName}
+        <if test="search.searchFilter == 'author'">
+            and author like concat('%', #{search.searchValue}, '%')
+        </if>
+        <if test="search.searchFilter == 'subject'">
+            and subject like concat('%', #{search.searchValue}, '%')
+        </if>
+        <if test="search.searchFilter == 'text'">
+            and text like concat('%', #{search.searchValue}, '%')
+        </if>;
+    </select>
+
+    <!--  List<PostListDto> getPostListByBoard(Map mpa);  -->
+    <select id="getPostListByBoard" parameterType="Map" resultType="PostListDto">
+        select p.postId,
+        p.userType,
+        p.userIp,
+        p.author,
+        p.subject,
+        p.views,
+        p.regDate,
+        pi.savedFileName,
+        pi.ext
+        from post as p
+        left join user as u on p.author = u.name
+        left join profileImage as pi on p.userType != 0 and u.userId = pi.userid
+        where p.boardName = #{boardName}
+        <if test="search.searchFilter == 'author'">
+            and p.author like concat('%', #{search.searchValue}, '%')
+        </if>
+        <if test="search.searchFilter == 'subject'">
+            and p.subject like concat('%', #{search.searchValue}, '%')
+        </if>
+        <if test="search.searchFilter == 'text'">
+            and p.text like concat('%', #{search.searchValue}, '%')
+        </if>
+        order by p.postId desc
+        limit #{paging.firstItemIndex}, #{paging.listSize};
+    </select>
+
+    <!--  List<PostListDto> getPostsOfTheDay();  -->
+    <!--    <select id="getPostsOfTheDay" resultType="PostListDto">-->
+    <!--        select postId, boardName,-->
+    <!--    </select>-->
+
+    <!--  List<BoardDto> getBoardListByCategoryName(String categoryName);  -->
+    <!--    <select id="getBoardListByCategoryName" parameterType="String" resultType="BoardDto">-->
+    <!--        select *-->
+    <!--        from board-->
+    <!--        where categoryName = #{categoryName};-->
+    <!--    </select>-->
+
+    <!--  int createBoard(BoardDto boardDto);  -->
+    <insert id="createBoard" parameterType="BoardDto">
+        insert into board
+        values (#{categoryName}, #{boardName});
+    </insert>
+
+    <!--  int checkBoardDuplicated(String boardName);  -->
+    <select id="checkBoardDuplicated" parameterType="String" resultType="int">
+        select count(*)
+        from board
+        where boardName = #{boardName};
+    </select>
+
+    <!--  int deleteBoard(String boardName);  -->
+    <delete id="deleteBoard" parameterType="String">
+        delete
+        from board
+        where boardName = #{boardName};
+    </delete>
+
+</mapper>

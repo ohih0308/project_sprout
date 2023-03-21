@@ -1,0 +1,248 @@
+.halfRow {
+    width: 100%;
+    height: 50%;
+}
+
+.section {
+    display: flex;
+    flex-direction: column;
+
+    margin: 5px;
+    padding: 20px;
+
+    width: calc(50% - 12px);
+    height: calc(100% - 50px);
+
+    min-width: 313px;
+    min-height: 300px;
+
+
+    border-radius: 10px;
+
+    border: solid 1px rgba(230, 230, 230);
+}
+
+
+/* tag height 50px */
+.tag {
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    width: calc(100% - 60px);
+    max-height: 23px;
+
+    margin: 10px auto;
+    padding: 3px 10px;
+
+    border-radius: 5px;
+
+    background-color: rgba(230, 230, 230);
+
+    font-size: 0.8rem;
+}
+
+.tag > a {
+    letter-spacing: 0.5px;
+
+    font-size: 0.9rem;
+
+    transition: 0.1s;
+}
+
+.tag > a:hover {
+    font-weight: bold;
+}
+
+/* diary */
+
+/* height 45px */
+.clockWrapper {
+    display: flex;
+
+    justify-content: end;
+    align-items: center;
+
+    margin-top: 20px;
+
+    min-height: 25px;
+}
+
+.clock {
+    border-bottom: 2px solid rgba(230, 230, 230);
+}
+
+.diaryInput {
+    height: calc(100% - 53px - 45px);
+}
+
+/* height 35px */
+.userInfoInput {
+    margin: 10px 0 0 0;
+    height: 25px;
+}
+
+.userInfo {
+    margin-right: 15px;
+    padding: 3px 5px;
+    width: 30%;
+    min-width: 110px;
+
+    border: 1px solid rgba(230, 230, 230);
+
+    font-size: 0.9rem;
+}
+
+/* height 116px */
+.textInput {
+    margin: 10px auto;
+    padding: 10px;
+
+    width: 100%;
+    height: calc(100% - 35px - 20px - 35px - 20px);
+
+    resize: none;
+
+    border: 3px solid rgba(230, 230, 230);
+}
+
+.privateConfig {
+    display: flex;
+
+    justify-content: start;
+    align-items: center;
+
+    height: 25px;
+
+    margin-bottom: 10px;
+
+    font-size: 0.8rem;
+
+    letter-spacing: 0.5px;
+}
+
+.privatePost {
+    width: 15px;
+    height: 15px;
+
+    margin-left: 10px;
+}
+
+.diarySubmitButtonWrapper {
+    display: flex;
+    justify-content: end;
+}
+
+.diarySubmitButton {
+    width: 120px;
+    height: 20px;
+
+    font-size: 0.9rem;
+}
+
+
+/* myCount height 56px */
+.myCount {
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    margin: 10px auto 0 auto;
+    padding: 8px;
+
+    width: 30%;
+    height: 30px;
+
+    border-radius: 5px;
+
+    background-color: rgba(230, 230, 230);
+
+    font-size: 1.8rem;
+}
+
+/* myList height 100% - 106px - (+å) */
+.myList {
+    margin: 20px auto 0 auto;
+    padding: 5px;
+
+    min-width: 95%;
+    height: auto;
+
+    border: 1px solid rgba(230, 230, 230);
+    border-radius: 5px;
+
+
+    overflow: auto;
+}
+
+.listItem {
+    display: flex;
+    justify-content: space-between;
+
+    margin: 3px;
+    padding: 3px;
+
+    height: 24px;
+
+    border-bottom: 1px solid rgba(230, 230, 230);
+}
+
+.text {
+    display: flex;
+
+    justify-content: start;
+    align-items: center;
+
+    margin-right: 5px;
+    padding-left: 5px;
+
+    background-color: white;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.text > span {
+    display: block;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.regDate {
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    min-width: fit-content;
+
+    background-color: white;
+}
+
+
+.config > a {
+    font-size: 1.6rem;
+    letter-spacing: 0.5px;
+}
+
+.config > a:hover {
+    letter-spacing: 1px;
+    font-weight: bold;
+}
+
+.configNotification {
+    justify-content: center;
+    align-items: center;
+}
+
+.configNotificationText{
+    margin-top: 20px;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    line-height: 1.2rem;
+}

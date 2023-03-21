@@ -1,0 +1,94 @@
+.crowedBoardList {
+    margin-bottom: 5px;
+
+    min-height: 150px;
+
+}
+
+.crowedBoard {
+    margin-right: 5px;
+
+    min-width: 300px;
+    background-color: rgba(230, 230, 230);
+}
+
+.postImgWrapper {
+    padding: 5px;
+
+    width: 140px;
+    height: 140px;
+}
+
+.boardInfo {
+    padding: 5px;
+
+    width: 140px;
+}
+
+.crowedBoardName {
+    margin-bottom: 3px;
+
+    height: 35px;
+
+    font-size: 1.4rem;
+}
+
+.numberOfNewPost {
+    margin: 3px 0;
+
+    height: 20px;
+}
+
+.postTitle {
+    margin-top: 3px;
+
+    height: 74px;
+}
+
+.categoryList {
+    justify-content: space-evenly;
+
+    margin-top: 5px;
+}
+
+.categoryBox {
+    margin: 10px 10px 5px 10px;
+    padding: 10px;
+
+    width: 100px;
+
+    background-color: rgba(230, 230, 230);
+    border-radius: 10px;
+}
+
+.category {
+    justify-content: center;
+    align-items: center;
+
+    margin-bottom: 5px;
+
+    min-height: 40px;
+
+    font-size: 1.3rem;
+    font-weight: bold;
+}
+
+.boardList {
+    margin-top: 5px;
+    height: 80px;
+}
+
+.board {
+    margin: 5px;
+
+    height: 30px;
+
+    font-size: 1rem;
+
+    transition: 0.2s;
+}
+
+.board:hover {
+    letter-spacing: 1px;
+    font-size: 1rem;
+}

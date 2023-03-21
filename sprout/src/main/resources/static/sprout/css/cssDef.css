@@ -1,0 +1,32 @@
+* {
+    margin: 0;
+    padding: 0;
+
+    font-family: "Apple SD Gothic Neo";
+}
+
+input, textarea {
+    padding-left: 5px;
+
+    border-radius: 5px;
+}
+
+button {
+    border: none;
+    border-radius: 5px;
+
+    letter-spacing: 0.5px;
+}
+
+button:active {
+    letter-spacing: 1px;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+li {
+    list-style: none;
+}

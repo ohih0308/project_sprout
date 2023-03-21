@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ohih.sprout.domain.myPage.mapper.MyPageMapper">
+    <!--  List<MyPostListDto> getPostListByUserId(Map map);  -->
+    <select id="getPostListByUserId" parameterType="Map" resultType="MyPostListDto">
+        select boardName, postId, subject, regDate
+        from post
+        where userId = #{userId}
+        order by postId desc limit 0, #{myPostListSize};
+    </select>
+
+    <!--  List<MyCommentListDto> getCommentListByUserId(Long userId);  -->
+    <select id="getCommentListByUserId" parameterType="Map" resultType="MyCommentListDto">
+        select postId, text, regDate
+        from comment
+        where userId = #{userId}
+        order by commentId desc limit 0, #{myCommentListSize};
+    </select>
+
+    <!--  int getPostCountByUserId(Long userId);  -->
+    <select id="getPostCountByUserId" parameterType="Long" resultType="Integer">
+        select count(*)
+        from post
+        where userId = #{userId};
+    </select>
+
+    <!--  int getCommentCountByUserId(Long userId);  -->
+    <select id="getCommentCountByUserId" parameterType="Long" resultType="Integer">
+        select count(*)
+        from comment
+        where userId = #{userId};
+    </select>
+
+    <!--  Boolean getDiaryActivationByUserId(Long userId);  -->
+    <select id="getDiaryActivationByUserId" parameterType="Long" resultType="Boolean">
+        select diaryActivation
+        from diaryConfig
+        where userId = #{userId};
+    </select>
+
+
+    <!--  post record  -->
+
+    <!--  Long getTotalCountOfPostByName(String name);  -->
+    <select id="getTotalCountOfPostByName" parameterType="String" resultType="Long">
+        select count(*)
+        from post
+        where userType = 2
+          and author = #{name};
+    </select>
+
+    <select id="getTotalCountOfPostByNameAndBoardName" parameterType="String" resultType="Long">
+        select count(*)
+        from post
+        where userType = 2
+          and author = #{name}
+          and boardName = #{boardName};
+    </select>
+
+    <!--  List<PostListDto> getPostListByName(Map map);  -->
+    <select id="getPostListByName" parameterType="Map" resultType="MyPostListDto">
+        select p.postId, p.boardName, p.subject, p.regDate, p.views, count(c.commentId) as commentCount
+        from post as p
+                 left join comment as c
+                           on p.postId = c.postId
+        where p.author = #{name}
+          and p.userType = 2
+        group by p.postId
+        order by p.postId desc
+            limit #{paging.firstItemIndex}, #{paging.listSize};
+    </select>
+
+    <!--  List<CountsByBoardNameDto> getCountsByBoardNamePost(String name);  -->
+    <select id="getCountsByBoardNamePost" parameterType="String" resultType="CountsByBoardNameDto">
+        select b.boardName, count(p.boardName) as cnt
+        from board as b
+                 left join post as p on b.boardName = p.boardName
+        where p.userType = 2
+          and p.author = #{name}
+        group by b.boardName
+        order by b.boardName asc;
+    </select>
+
+
+    <!--  int getPostCountByAuthorAndBoardName(String name, String boardName);  -->
+    <select id="getPostCountByAuthorAndBoardName" parameterType="Map" resultType="Long">
+        select count(*)
+        from post
+        where boardName = #{boardName}
+          and userType = 2
+          and author = #{author};
+    </select>
+
+    <!--  List<MyPostListDto> getPostListByAuthorAndBoardName(Map map)  -->
+    <select id="getPostListByAuthorAndBoardName" parameterType="Map" resultType="MyPostListDto">
+        select p.postId, p.boardName, p.subject, p.regDate, p.views, count(c.commentId) as commentCount
+        from post as p
+                 left join comment as c
+                           on p.postId = c.postId
+        where boardName = #{boardName}
+          and p.userType = 2
+          and p.author = #{author}
+
+        group by p.postId
+        order by p.postId desc
+            limit #{paging.firstItemIndex}, #{paging.listSize};
+    </select>
+
+
+    <!--  comment record  -->
+
+    <!--  Long getTotalCountOfCommentByName(String name);  -->
+    <select id="getTotalCountOfCommentByName" parameterType="String" resultType="Long">
+        select count(*)
+        from comment
+        where userType = 2
+          and author = #{name};
+    </select>
+
+    <!--  List<CountsByBoardNameDto> getCountsByBoardNameComment(String name);  -->
+    <select id="getCountsByBoardNameComment" parameterType="String" resultType="CountsByBoardNameDto">
+        select p.boardName, count(c.commentId) as cnt
+        from comment as c
+                 left join post as p on c.postId = p.postId
+        where c.userTYpe = 2
+          and c.author = #{name}
+        group by p.boardName
+        order by p.boardName asc;
+    </select>
+
+    <!--  Long getCommentCountByAuthorAndBoardName(Map map);  -->
+    <select id="getCommentCountByAuthorAndBoardName" parameterType="Map" resultType="Long">
+        select count(*)
+        from comment as c
+                 left join post as p
+                           on c.postId = p.postId
+        where p.boardName = #{boardName}
+          and c.userType = 2
+          and c.author = #{author}
+    </select>
+
+    <!--  List<MyCommentListDto> getCommentListByAuthorAndBoardName(Map map);  -->
+    <select id="getCommentListByAuthorAndBoardName" parameterType="Map" resultType="MyCommentListDto">
+        select c.commentId, c.postId, c.text, c.regDate, p.boardName
+        from comment as c
+                 left join post as p on c.postId = p.postId
+        where c.userType = 2
+          and c.author = #{author}
+          and p.boardName = #{boardName}
+        order by c.commentId desc
+            limit #{paging.firstItemIndex}, #{paging.listSize};
+    </select>
+
+    <!--  UserInfoDto getUserInfoByName(String name);  -->
+    <select id="getUserInfoByName" parameterType="String" resultType="UserInfoDto">
+        select u.userId, u.userType, u.email, u.name, pi.savedFileName, pi.ext, u.regDate
+        from user as u
+                 left join profileImage as pi on u.userId = pi.userId
+        where u.name = #{name};
+    </select>
+</mapper>

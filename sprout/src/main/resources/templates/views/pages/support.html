@@ -1,0 +1,34 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{/layout/layout :: layout(~{:: title}, ~{:: privateResources}, ~{:: page})}">
+    <head>
+        <title th:text="#{webName}">
+            Sprout
+        </title>
+
+        <privateResources>
+            <link href="/sprout/css/pages/support.css" rel="stylesheet"/>
+        </privateResources>
+    </head>
+
+    <body>
+        <page th:class="page">
+
+            <div th:if="${message} != null">
+                <script th:inline="javascript">
+                    let message = /*[[${message}]]*/;
+                    alert(message);
+                </script>
+            </div>
+
+
+            <div class="support">
+                Shinan
+                <br/>
+                Oh Inhwan
+                <br/>
+                110 393 521 602
+            </div>
+
+        </page>
+    </body>
+</html>

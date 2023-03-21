@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ohih.sprout.domain.post.mapper.PostMapper">
+
+    <!--  PostDto getPostDtoByPostId(Long postId);  -->
+    <select id="getPostDtoByPostId" parameterType="Long" resultType="PostDto">
+        select c.*,
+               p.postId,
+               p.userType,
+               p.userIp,
+               p.author,
+               p.boardName,
+               p.subject,
+               p.text,
+               p.views,
+               p.regDate,
+               p.modDate,
+               pi.savedFileName,
+               pi.ext
+        from post as p
+                 left join user as u on p.author = u.name
+                 left join profileImage as pi on p.userType != 0 and u.userId = pi.userId
+	 ,(select count(*) as cnt from comment where postId = #{postId}) as c
+        where postId = #{postId};
+
+    </select>
+
+    <!--  int writePost(PostEditDto postEditDto);;  -->
+    <insert id="writePost" parameterType="PostEditDto" useGeneratedKeys="true" keyProperty="postId">
+        insert into post (userType, userId, userIp, author, pw, boardName, subject, text, views, regDate, modDate)
+        values (#{userType}, #{userId}, #{userIp}, #{author}, #{pw}, #{boardName}, #{subject}, #{text}, 0, now(),
+                now());
+    </insert>
+
+    <!--  PostAccessAuthorityDto getPostAccessAuthorityDto(Long postId);  -->
+    <select id="getPostAccessAuthorityDto" parameterType="Long" resultType="PostAccessAuthorityDto">
+        select postId, userType, userId, author, pw
+        from post
+        where postId = #{postId};
+    </select>
+
+    <!--  PostEditDto getPostEditDtoByPostId(Long postId);  -->
+    <select id="getPostEditDtoByPostId" parameterType="Long" resultType="PostEditDto">
+        select postId,
+               userType,
+               userId,
+               userIp,
+               author,
+               boardName,
+               subject,
+               text
+        from post
+        where postId = #{postId};
+    </select>
+
+    <!--  int updatePost(PostEditDto postEditDto);  -->
+    <update id="updatePost" parameterType="PostEditDto">
+        update post
+        set userIp    = #{userIp},
+            author    = #{author},
+            pw        = #{pw},
+            boardName = #{boardName},
+            subject   = #{subject},
+            text      = #{text},
+            modDate   = now()
+        where postId = #{postId};
+    </update>
+
+    <!--  int deletePostByPostId(Long postId);  -->
+    <delete id="deletePostByPostId" parameterType="Long">
+        delete
+        from post
+        where postId = #{postId};
+    </delete>
+
+
+    <!--  int getPostCountByUserId(Long userId);  -->
+    <select id="getPostCountByUserId" parameterType="Long">
+        select count(*)
+        from post
+        where userId = #{userId};
+    </select>
+
+
+    <!--  int addViewCount(Long postId);  -->
+    <update id="addViewCount" parameterType="Long">
+        update post
+        set views = views + 1
+        where postId = #{postId};
+    </update>
+
+
+    <!--  int getReputationCountByPostId(Long postId);  -->
+    <select id="getReputationCountByPostId" parameterType="ReputationDto" resultType="Integer">
+        select count(*)
+        from reputation
+        where postId = #{postId}
+          and ip = #{ip};
+    </select>
+
+    <!--  int addReputation(ReputationDto reputationDto);  -->
+    <insert id="addReputation" parameterType="ReputationDto">
+        insert into reputation
+        values (#{type}, #{postId}, #{ip});
+    </insert>
+
+    <!--  int updateReputation(ReputationDto reputationDto);  -->
+    <update id="updateReputation" parameterType="ReputationDto">
+        update reputation
+        set type = #{type}
+        where postId = #{postId}
+          and ip = #{ip};
+    </update>
+
+    <!--  int getReputationCountByType(Long postId);  -->
+    <select id="getReputationCountByType" parameterType="Long" resultType="ReputationCountDto">
+        select *
+        from (select count(*) as up from reputation where type = true and postId = #{postId}) as u,
+             (select count(*) as down from reputation where type = false and postId = #{postId}) as d
+    </select>
+
+    <!--  List<Long> getPostListByBoardName(String boardName);  -->
+    <!--    <select id="getPostListByBoardName" parameterType="String" resultType="Long">-->
+    <!--        select postId-->
+    <!--        from post-->
+    <!--        where boardName = #{boardName};-->
+    <!--    </select>-->
+
+    <!--  List<PostListDto> getCurrentPost();  -->
+    <select id="getCurrentPost" resultType="CurrentPostDto">
+        select p.postId,
+               p.userIp,
+               p.author,
+               p.subject,
+               p.text,
+               p.regDate,
+               pi.savedFileName,
+               pi.ext
+        from post as p
+                 left join user as u on p.author = u.name
+                 left join profileImage as pi on p.userType != 0 and u.userId = pi.userid
+        order by p.postId desc limit 0, 10;
+    </select>
+</mapper>

@@ -1,0 +1,57 @@
+html, body {
+    width: 100vw;
+    height: calc(100vh + 60px);
+
+    min-width: 1280px;
+    min-height: 780px;
+}
+
+.container {
+    height: calc(100% - 20px);
+}
+
+.main {
+    padding: 10px;
+
+    min-height: calc(100% - 60px);
+}
+
+.sub {
+    min-height: 60px;
+
+    background-color: rgba(230, 230, 230);
+}
+
+.page {
+    margin: 0 5px;
+
+    width: calc((100% - 215px) * 0.7);
+}
+
+.adContainer {
+    justify-content: start;
+    align-items: start;
+
+    margin-left: 5px;
+
+    padding: 10px;
+
+    width: calc(((100% - 215px) * 0.3) - 37px);
+
+    border: 1px solid rgba(230, 230, 230);
+
+    border-radius: 10px;
+
+    flex-wrap: wrap;
+}
+
+.adFile {
+    margin: 3px;
+    width: calc(50% - 6px);
+    height: calc(100px);
+}
+
+.adFile > img {
+    width: 100%;
+    height: 100%;
+}

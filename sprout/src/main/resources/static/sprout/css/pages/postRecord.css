@@ -1,0 +1,266 @@
+/*  rgba(230, 230, 230)  */
+
+/*65*/
+.type {
+    display: flex;
+
+    align-items: center;
+
+    margin: 5px 0 0 0;
+    padding-left: 10px;
+    padding-bottom: 5px;
+
+    border-bottom: 5px black double;
+
+    min-height: 50px;
+
+    font-size: 2.5rem;
+}
+
+/*51*/
+.leftArrowWrapper {
+    padding: 10px 0 10px 10px;
+
+    justify-content: start;
+    align-items: center;
+
+    height: 20px;
+
+    font-size: 1.5rem;
+}
+
+.leftArrow {
+    height: 15px;
+    transition: 0.1s;
+}
+
+.leftArrow:hover {
+    height: 20px;
+}
+
+.record {
+    height: calc(100% - 40px);
+}
+
+.boardList {
+    margin-right: 10px;
+    padding: 10px;
+
+    width: 120px;
+    min-height: calc(100% - 22px);
+
+    align-items: center;
+
+    overflow: auto;
+
+    border-radius: 10px;
+    border: 2px solid rgba(230, 230, 230);
+}
+
+
+.board {
+    padding: 5px;
+    align-items: center;
+    height: 20px;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    transition: 0.1s;
+}
+
+.board:hover {
+    margin: 5px 0;
+    font-weight: bold;
+    font-size: 1rem;
+    letter-spacing: 0.5px;
+}
+
+
+.content {
+    padding: 5px;
+
+    width: calc(100% - 164px);
+    min-height: calc(100% - 27px);
+
+    border-radius: 10px;
+    border: 1px solid rgba(230, 230, 230);
+}
+
+.table {
+    margin-bottom: 5px;
+    width: 100%;
+    height: calc(100% - 47px);
+
+    overflow: auto;
+}
+
+.thead {
+    margin-bottom: 10px;
+    padding-bottom: 3px;
+
+    height: 40px;
+
+    border-bottom: 1px solid rgba(230, 230, 230);
+}
+
+
+.subject {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+
+    margin-left: 5px;
+    padding-left: 10px;
+
+    width: calc(100% - 176px);
+
+    font-size: 0.9rem;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+.date, .view {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 3px;
+
+    width: 84px;
+    height: 19px;
+}
+
+.postInfo > .dateWrapper, .postInfo > .viewWrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 3px 5px 2px 5px;
+    height: 15px;
+
+    font-size: 0.7rem;
+}
+
+.viewIcon, .dateIcon {
+    margin-right: 5px;
+    padding: 3px;
+
+    width: 14px;
+    height: 14px;
+}
+
+/*137*/
+.postInfo {
+    margin-left: 5px;
+
+    width: 130px;
+
+    border-left: 1px solid rgba(230, 230, 230);
+}
+
+
+.date, .view {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 3px;
+
+    width: 84px;
+    height: 19px;
+}
+
+/*37*/
+
+
+.delete {
+    justify-content: space-between;
+    align-items: center;
+
+    margin-left: 5px;
+
+    width: 30px;
+
+    border-left: 1px solid rgba(230, 230, 230);
+}
+
+.delete > button, .delete > input {
+    height: 17px;
+    width: 17px;
+}
+
+.delete > button {
+    justify-content: center;
+    align-items: center;
+
+    font-size: 0.7rem;
+}
+
+.delete > button:active {
+    font-weight: bold;
+}
+
+.line {
+    border: 0;
+
+    height: 1px;
+    width: calc(100% - 3px);
+
+    background-color: rgba(230, 230, 230);
+
+    margin: 2px 0 2px 3px;
+    width: 100%;
+}
+
+.delete > input {
+    transform: scale(1);
+}
+
+.delete {
+    justify-content: center;
+    align-items: center;
+
+    margin-left: 5px;
+
+    width: 30px;
+
+    border-left: 1px solid rgba(230, 230, 230);
+}
+
+
+.post {
+    margin-bottom: 5px;
+    padding-bottom: 5px;
+
+    height: 40px;
+
+    border-bottom: 1px solid rgba(230, 230, 230);
+}
+
+
+.postPaging {
+    justify-content: center;
+    align-items: center;
+
+    margin: 5px 0;
+    height: 30px;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+
+    display: none;
+}
+
+.paging {
+    margin: 0 3px;
+
+    transition: 0.1s;
+}
+
+.paging:hover {
+    font-size: 1.2rem;
+    font-weight: bold;
+
+    cursor: pointer;
+}

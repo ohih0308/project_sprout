@@ -1,0 +1,102 @@
+form {
+    padding: 10px;
+}
+
+input {
+    margin: 5px 0;
+    min-height: 28px;
+
+    border: 1px solid rgba(230, 230, 230);
+}
+
+.fieldError {
+    border: 1px solid red;
+}
+
+.userInfoInput {
+    width: 100%;
+}
+
+#author, #pw {
+    width: 170px;
+    margin-right: 10px;
+
+    font-size: 0.9rem;
+}
+
+#subject {
+    margin-bottom: 10px;
+
+    font-size: 0.9rem;
+}
+
+
+#fileInput {
+    display: none;
+}
+
+.fileAddButton {
+    margin: 10px 0 5px 0;
+
+    height: 25px;
+    width: calc(100% - 2px);
+
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 5px;
+
+    border: 1px solid rgba(230, 230, 230);
+
+    font-size: 0.9rem;
+}
+
+
+.fileBox {
+    margin-top: 5px;
+    padding: 5px;
+
+    min-height: 80px;
+
+    border-radius: 5px;
+    border: 1px solid rgba(230, 230, 230);
+
+    overflow: scroll;
+}
+
+.line {
+    margin: 2px 0;
+    height: 30px;
+}
+
+.fileName {
+    margin-right: 5px;
+}
+
+.deleteButton {
+    margin-left: 5px;
+
+    width: 15px;
+    height: 15px;
+
+    border: solid 1px rgba(230, 230, 230);
+}
+
+
+.newPostButtonSet {
+    display: flex;
+    flex-direction: row;
+
+    justify-content: end;
+
+    margin-top: 20px;
+}
+
+.backButton, .newPostSubmitButton {
+    margin-left: 10px;
+    width: 78px;
+    height: 28px;
+
+    border: 1px solid rgba(230, 230, 230);
+    font-size: 0.8rem;
+}

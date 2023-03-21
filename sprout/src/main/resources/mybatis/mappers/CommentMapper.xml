@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ohih.sprout.domain.comment.mapper.CommentMapper">
+    <!--  List<CommentListDto> getCommentByPostId(Map map);  -->
+    <select id="getCommentByPostId" parameterType="Map" resultType="CommentListDto">
+        select @rowNum := @rowNum + 1 as rowNum,
+               c.userType,
+               c.userId,
+               c.userIp,
+               c.author,
+               c.text,
+               c.postId,
+               c.text,
+               c.regDate
+        from comment as c, (select @rowNum := 0) as r
+            /*                 left join user as u on c.author = u.name
+                     left join profileImage as pi on c.userType != 0 and u.userId = pi.userId*/
+        where c.postId = #{postId}
+        order by rowNum desc
+            limit #{paging.firstItemIndex}, #{paging.listSize};
+    </select>
+
+
+    <!--  Long getTotalCountByPostId(Long postId);  -->
+    <select id="getTotalCountByPostId" parameterType="Long" resultType="Long">
+        select count(*)
+        from comment
+        where postId = #{postId};
+    </select>
+
+    <!--  int writeComment(CommentWriteDto commentWriteDto);  -->
+    <insert id="writeComment" parameterType="CommentWriteDto">
+        insert into comment (userType, userId, userIp, author, pw, postId, text, regDate)
+        values (#{userType}, #{userId}, #{userIp}, #{author}, #{pw}, #{postId}, #{text}, now());
+    </insert>
+
+    <!--  CommentAccessAuthority getCommentAccessAuthority(Long postId);  -->
+    <select id="getCommentAccessAuthority" parameterType="Long" resultType="CommentAccessAuthority">
+        select commentId, userType, userId, author, pw
+        from comment
+        where commentId = #{commentId};
+    </select>
+
+    <!--  int deleteCommentByCommentId(Long commentId);  -->
+    <delete id="deleteCommentByCommentId" parameterType="Long">
+        delete
+        from comment
+        where commentId = #{commentid};
+    </delete>
+
+    <!--  int deleteCommentByPostId(Long postId);  -->
+    <delete id="deleteCommentByPostId" parameterType="Long">
+        delete
+        from comment
+        where postId = #{postId};
+    </delete>
+
+    <!--  int getCommentCountByPostId(Long postId);  -->
+    <select id="getCommentCountByPostId" parameterType="Long" resultType="Integer">
+        select count(*)
+        from comment
+        where postId = #{postId};
+    </select>
+
+
+    <!--  int getCommentCountByUserId(Long userId);  -->
+    <select id="getCommentCountByUserId" parameterType="Long">
+        select count(*)
+        from comment
+        where userId = #{userId};
+    </select>
+</mapper>

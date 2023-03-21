@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ohih.sprout.domain.diary.mapper.DiaryMapper">
+
+    <!--  int diaryConfigInit(Long userId);  -->
+    <insert id="diaryConfigInit" parameterType="Long">
+        insert into diaryConfig (userId, diaryActivation, privateRead, privateWrite)
+        values (#{userId}, true, false, false);
+    </insert>
+
+    <!--  int updateDiaryConfig(DiaryConfigDto diaryConfigDto);  -->
+    <insert id="updateDiaryConfig" parameterType="DiaryConfigUpdateDto">
+        insert into diaryConfig (privateRead, privateWrite)
+        values (#{privateRead}, #{privateWrite}) where userId = #{userId};
+    </insert>
+
+
+    <!--  int activateDiary(Long userId);  -->
+    <update id="activateDiary" parameterType="Long">
+        update diaryConfig
+        set diaryActivation = true
+        where userId = #{userId};
+    </update>
+
+    <!--  int deactivateDiary(Long userId);  -->
+    <update id="deactivateDiary" parameterType="Long">
+        update diaryConfig
+        set diaryActivation = false
+        where userId = #{userId};
+    </update>
+
+    <!--  Long getTotalCountByOwner(Map map);  -->
+    <!--<select id="getTotalCountByOwner" parameterType="Long">
+        select count(*)
+        from diary
+        where owner = #{userId}
+        <if test="search.searchFilter == 'author'">
+            and author like concat('%', #{search.searchValue}, '%')
+        </if>
+        <if test="search.searchFilter == 'subject'">
+            and subject like concat('%', #{search.searchValue}, '%')
+        </if>
+        <if test="search.searchFilter == 'text'">
+            and text like concat('%', #{search.searchValue}, '%')
+        </if>;
+    </select>-->
+
+    <!--  List<DiaryListDto> getPostListByOwner(Map map);  -->
+    <!--<select id="getPostListByOwner" parameterType="Map" resultType="DiaryListDto">
+        select d.userType,
+        d.userId,
+        d.userIp,
+        d.author,
+        d.pw,
+        d.postId,
+        d.text,
+        d.regDate,
+        pi.savedFileName,
+        pi.ext
+        from diary as d
+        left join profileImage as pi on d.userId = pi.userId
+        where owner = #{owner}
+        <if test="principal == false">
+            and d.openPost = 1
+        </if>
+
+        <if test="search.searchFilter == 'author'">
+            and p.author like concat('%', #{search.searchValue}, '%')
+        </if>
+        <if test="search.searchFilter == 'text'">
+            and p.text like concat('%', #{search.searchValue}, '%')
+        </if>
+
+        order by d.postId desc
+        limit #{paging.firstItemIndex}, #{paging.postListSize};
+    </select>-->
+
+    <!--  int writeDiary(DiaryEditDto diaryEditDto);  -->
+    <insert id="writeDiary" parameterType="DiaryEditDto">
+        insert into diary (owner, userType, userId, userIp, author, pw, privatePost, text, regDate)
+        values (#{owner}, #{userType}, #{userId}, #{userIp}, #{author}, #{pw}, #{privatePost}, #{text}, now());
+    </insert>
+
+    <!--  DiaryAccessAuthorityDto getDiaryAccessAuthorityDto(Long postId);  -->
+    <select id="getDiaryAccessAuthorityDto" parameterType="Long" resultType="DiaryAccessAuthorityDto">
+        select diaryId, userType, userId, author, pw
+        from diary
+        where diaryId = #{diaryId};
+    </select>
+
+    <!--  Boolean getDiaryActivationStatusByUserId(Long userId);  -->
+    <select id="getDiaryActivationStatusByUserId" parameterType="Long" resultType="Boolean">
+        select diaryActivation
+        from diaryConfig
+        where userId = #{userId};
+    </select>
+
+    <!--  int deleteDiaryByDiaryId(Long diaryId);  -->
+    <delete id="deleteDiaryByDiaryId" parameterType="Long">
+        delete
+        from diary
+        where diaryId = #{diaryId};
+    </delete>
+
+    <!--  int getTotalDiaryCountByName(String owner);  -->
+    <select id="getTotalDiaryCountByName" parameterType="String" resultType="Long">
+        select count(*)
+        from diary as d,
+             (select userId from user where name = #{owner}) as tmp
+        where tmp.userId = d.owner;
+    </select>
+
+    <!--  int getTodayDiaryCountByName(String owner);  -->
+    <select id="getTodayDiaryCountByName" parameterType="String" resultType="Integer">
+        select count(*)
+        from diary as d,
+             (select userId from user where name = #{owner}) as tmp
+        where date_format(d.regDate, "%Y-%m-%d") = curdate()
+          and d.userType = 2
+          and tmp.userId = d.owner;
+    </select>
+
+    <!--  List<DiaryListDto> getDiaryListByName(String owner);  -->
+    <select id="getDiaryListByName" parameterType="Map" resultType="DiaryListDto">
+        select d.owner,
+               d.userType,
+               d.userId,
+               d.userIp,
+               d.author,
+               d.postId,
+               d.privatePost,
+               d.text,
+               d.regDate
+        from diary as d,
+             (select userId from user where name = #{owner}) as tmp
+        where d.owner = tmp.userId
+        order by d.postId desc
+            limit #{paging.firstItemIndex}
+               , #{paging.listSize};
+    </select>
+
+
+    <!--  Boolean getDiaryActivationStatus(String name);  -->
+    <select id="getDiaryActivationStatus" parameterType="String" resultType="Boolean">
+        select diaryActivation
+        from diaryConfig as dc
+                 left join user as u on dc.userId = u.userId
+        where u.name = #{name};
+    </select>
+</mapper>

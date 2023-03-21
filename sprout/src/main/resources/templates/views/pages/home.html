@@ -1,0 +1,46 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{/layout/layout :: layout(~{:: title}, ~{:: privateResources}, ~{:: page})}">
+    <head>
+        <title th:text="#{webName}">
+            Sprout
+        </title>
+
+        <privateResources>
+            <script type="text/javascript" src="/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+
+            <link href="/sprout/css/pages/home.css" rel="stylesheet"/>
+            <script type="text/javascript" src="/sprout/js/pages/home.js"></script>
+        </privateResources>
+    </head>
+
+    <body>
+        <page class="page column">
+            <div class="eventSection">
+                <a th:each="eventFile : ${eventFileList}" th:href="@{{link} (link = ${eventFile.link})}">
+                    <img class="eventFile"
+                         th:src="@{/files/eventFiles/{savedFileName}.{ext}
+                     (savedFileName = ${eventFile.savedFileName}, ext = ${eventFile.ext})}"/>
+                </a>
+            </div>
+
+            <div class="currentPostSection row">
+                <div th:each="post : ${currentPostList}" class="post column" th:attr="data-value = ${post.postId}">
+                    <div class="postInfo row">
+                        <div class="author row">
+                            <span th:text="#{AUTHOR} + ': '+ ${post.author}"/>
+                        </div>
+                        <div class="regDate row">
+                            <span th:text="#{DATE} + ': '+ ${#dates.format(post.regDate, 'HH:mm')}"/>
+                        </div>
+                    </div>
+
+                    <div class="subject row">
+                        <span th:text="${post.subject}"/>
+                    </div>
+
+                    <div class="text" th:utext="${post.text}"/>
+                </div>
+            </div>
+        </page>
+    </body>
+</html>

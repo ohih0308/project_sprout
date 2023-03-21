@@ -1,0 +1,186 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{/layout/layout :: layout(~{:: title}, ~{:: privateResources}, ~{:: page})}">
+    <head>
+        <title th:text="${boardName}">
+        </title>
+
+        <privateResources>
+            <script type="text/javascript" src="/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+            <script type="text/javascript" src="/sprout/js/util.js"></script>
+
+            <link rel="stylesheet" href="/sprout/css/pages/admin.css"/>
+            <script type="text/javascript" src="/sprout/js/pages/admin.js"></script>
+        </privateResources>
+    </head>
+
+    <body>
+        <page class="page">
+            <input id="owner" type="hidden" th:value="${owner}"/>
+
+            <div class="leftArrowWrapper row">
+                <img src="/img/left-arrow.png" class="leftArrow"
+                     th:onclick="|location.href='@{/my-page/{name} (name = ${owner})}'|"/>
+            </div>
+
+            <div class="configSection row">
+                <div class="configSideBar">
+                    <div class="configNav userInfo"><span th:text="#{CATEGORY}"/></div>
+
+                    <div class="configNav editInfo"><span th:text="#{BOARD}"/></div>
+
+                    <div class="configNav eventControl"><span th:text="#{EVENT}"/></div>
+
+                    <div class="configNav notificationControl"><span th:text="#{NOTIFICATION}"/></div>
+
+                    <div class="configNav adControl"><span th:text="#{AD}"/></div>
+                </div>
+
+                <div class="configBody column">
+                    <div class="categoryCard column">
+                        <div class="categorySection createCategorySection">
+                            <div class="cardHead row"><span th:text="Create"></span></div>
+
+                            <div class="row categoryRow">
+                                <input type="text" class="categoryNameInput" placeholder="New Category Name">
+                                <button type="button" th:text="#{CONFIRM}" class="createCategoryButton"></button>
+                            </div>
+                        </div>
+
+                        <div class="categorySection deleteCategorySection">
+                            <div class="cardHead row"><span th:text="Delete"></span></div>
+
+                            <div class="row categoryRow">
+                                <select id="deleteCategorySelection">
+                                    <option th:each="category : ${categoryList}" th:text="${category.categoryName}">
+                                        Category Name
+                                    </option>
+                                </select>
+                                <button type="button" th:text="#{CONFIRM}" class="deleteCategoryButton"></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="boardCard">
+                        <div class="boardSection createBoardSection">
+                            <div class="cardHead row"><span th:text="Create"></span></div>
+
+                            <div class="row boardRow">
+                                <select class="boardCategorySelection">
+                                    <option th:each="category : ${categoryList}" th:text="${category.categoryName}">
+                                        Category Name
+                                    </option>
+                                </select>
+                                <input type="text" class="boardNameInput" placeholder="New Board Name">
+                                <button type="button" th:text="#{CONFIRM}" class="createBoardButton"></button>
+                            </div>
+                        </div>
+
+                        <div class="boardSection deleteBoardSection">
+                            <div class="cardHead row"><span th:text="Delete"></span></div>
+
+                            <div class="row boardRow">
+                                <select id="deleteBoardSelection">
+                                    <option th:each="board : ${boardList}" th:text="${board.boardName}">
+                                        Board Name
+                                    </option>
+                                </select>
+                                <button type="button" th:text="#{CONFIRM}" class="deleteBoardButton"></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="eventCard">
+                        <div class="eventListSection">
+                            <div class="cardHead row">
+                                Event List
+                            </div>
+
+                            <div class="eventList">
+                                <div class="event row" th:each="eventFile : ${eventFileList}">
+                                    <span class="eventName" th:text="${eventFile.eventName}"/>
+                                    <button th:savedFileName = "${eventFile.savedFileName}"
+                                            th:ext="${eventFile.ext}"
+                                            class="deleteEventButton" type="button"
+                                            th:onclick="deleteEvent(this.getAttribute('savedFileName'),
+                                            this.getAttribute('ext')">X</button>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <form class="eventAddForm column">
+                            <div class="cardHead row">
+                                Add Event
+                            </div>
+
+                            <div class="field column">
+                                <input type="text" name="eventName" class="eventNameInput" placeholder="Event Name"/>
+                            </div>
+
+                            <div class="field column">
+                                <input type="text" name="link" class="linkInput" placeholder="Event Link"/>
+                            </div>
+
+                            <div class="eventFile row">
+                                <input class="selectedFile" type="text" th:placeholder="#{EVENT_FILE_NAME}"
+                                       readonly/>
+                                <label class="multipartFile" for="multipartFile" th:text="#{select}"></label>
+                                <input type="file" id="multipartFile" name="multipartFile" multiple="false"/>
+                            </div>
+
+                            <button class="addEventButton" type="button" th:text="#{submit}"/>
+                        </form>
+                    </div>
+
+                    <div class="notificationCard">
+                        notification
+                    </div>
+
+                    <div class="adCard">
+                        <div class="eventListSection">
+                            ad list
+<!--                            <div class="cardHead row">-->
+<!--                                Event List-->
+<!--                            </div>-->
+
+<!--                            <div class="eventList">-->
+<!--                                <div class="event row" th:each="eventFile : ${eventFileList}">-->
+<!--                                    <span class="eventName" th:text="${eventFile.eventName}"/>-->
+<!--                                    <button th:savedFileName = "${eventFile.savedFileName}"-->
+<!--                                            th:ext="${eventFile.ext}"-->
+<!--                                            class="deleteEventButton" type="button"-->
+<!--                                            th:onclick="deleteEvent(this.getAttribute('savedFileName'),-->
+<!--                                            this.getAttribute('ext')">X</button>-->
+<!--                                </div>-->
+<!--                            </div>-->
+                        </div>
+
+                        <form class="commercialAddForm column">
+                            <div class="cardHead row">
+                                Add Commercial
+                            </div>
+
+                            <div class="field column">
+                                <input type="text" name="provider" class="providerInput"
+                                       placeholder="Provider"/>
+                            </div>
+
+                            <div class="field column">
+                                <input type="text" name="link" class="linkInput" placeholder="Commercial Link"/>
+                            </div>
+
+                            <div class="eventFile row">
+                                <input class="selectedFile" type="text" th:placeholder="#{COMMERCIAL_FILE_NAME}"
+                                       readonly/>
+                                <label class="multipartFile" for="commercialFile" th:text="#{select}"></label>
+                                <input type="file" id="commercialFile" name="multipartFile" multiple="false"/>
+                            </div>
+
+                            <button class="addCommercialButton" type="button" th:text="#{submit}"/>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </page>
+    </body>
+</html>

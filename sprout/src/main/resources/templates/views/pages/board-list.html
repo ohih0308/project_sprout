@@ -1,0 +1,149 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{/layout/layout :: layout(~{:: title}, ~{:: privateResources}, ~{:: page})}">
+    <head>
+        <title>
+            Category List
+        </title>
+
+        <privateResources>
+            <script type="text/javascript" src="/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+
+            <link href="/sprout/css/pages/boardList.css" rel="stylesheet"/>
+            <script type="text/javascript" src="/sprout/js/pages/board-list.js"></script>
+        </privateResources>
+    </head>
+
+    <body>
+        <page class="page column overflow">
+            <!--<div class="crowedBoardList row overflow">
+                <div class="crowedBoard row">
+                    <div class="postImgWrapper">
+                        <img class="postImg fit" src="/img/turtle.jpeg"/>
+                    </div>
+
+                    <div class="boardInfo column">
+                        <div class="crowedBoardName">
+                            <span>board name</span>
+                        </div>
+                        <div class="numberOfNewPost">
+                            <span>100</span>
+                        </div>
+                        <div class="postTitle">
+                            <span>title</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="crowedBoard row">
+                    <div class="postImgWrapper">
+                        <img class="postImg fit" src="/img/turtle.jpeg"/>
+                    </div>
+
+                    <div class="boardInfo column">
+                        <div class="crowedBoardName">
+                            <span>board name</span>
+                        </div>
+                        <div class="numberOfNewPost">
+                            <span>100</span>
+                        </div>
+                        <div class="postTitle">
+                            <span>title</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="crowedBoard row">
+                    <div class="postImgWrapper">
+                        <img class="postImg fit" src="/img/turtle.jpeg"/>
+                    </div>
+
+                    <div class="boardInfo column">
+                        <div class="crowedBoardName">
+                            <span>board name</span>
+                        </div>
+                        <div class="numberOfNewPost">
+                            <span>100</span>
+                        </div>
+                        <div class="postTitle">
+                            <span>title</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="crowedBoard row">
+                    <div class="postImgWrapper">
+                        <img class="postImg fit" src="/img/turtle.jpeg"/>
+                    </div>
+
+                    <div class="boardInfo column">
+                        <div class="crowedBoardName">
+                            <span>board name</span>
+                        </div>
+                        <div class="numberOfNewPost">
+                            <span>100</span>
+                        </div>
+                        <div class="postTitle">
+                            <span>title</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="crowedBoard row">
+                    <div class="postImgWrapper">
+                        <img class="postImg fit" src="/img/turtle.jpeg"/>
+                    </div>
+
+                    <div class="boardInfo column">
+                        <div class="crowedBoardName">
+                            <span>board name</span>
+                        </div>
+                        <div class="numberOfNewPost">
+                            <span>100</span>
+                        </div>
+                        <div class="postTitle">
+                            <span>title</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="crowedBoard row">
+                    <div class="postImgWrapper">
+                        <img class="postImg fit" src="/img/turtle.jpeg"/>
+                    </div>
+
+                    <div class="boardInfo column">
+                        <div class="crowedBoardName">
+                            <span>board name</span>
+                        </div>
+                        <div class="numberOfNewPost">
+                            <span>100</span>
+                        </div>
+                        <div class="postTitle">
+                            <span>title</span>
+                        </div>
+                    </div>
+                </div>
+            </div>-->
+
+
+            <div class="categoryList row wrap">
+                <div class="categoryBox" th:each="category : ${categoryList}">
+                    <div class="category row" th:text="${category.categoryName}">
+                        <span th:text="${category.categoryName}"></span>
+                    </div>
+
+                    <div class="boardList column overflow">
+                        <div class="board" th:if="${category.categoryName} == ${board.categoryName}"
+                              th:each="board : ${boardList}"
+
+                            th:attr="data-value = ${board.boardName}">
+                            <span class="boardName" th:text="${board.boardName}"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </page>
+    </body>
+</html>

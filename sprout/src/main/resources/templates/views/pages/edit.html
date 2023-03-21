@@ -1,0 +1,83 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{/layout/layout :: layout(~{:: title}, ~{:: privateResources}, ~{:: page})}">
+    <head>
+        <title th:text="${boardName}">
+        </title>
+
+        <privateResources>
+            <script src="/jquery-3.6.0/jquery-3.6.0.min.js" type="text/javascript"></script>
+
+            <script src="/summernote/summernote-lite.js" type="text/javascript"></script>
+            <script src="/summernote/lang/summernote-ko-KR.js" type="text/javascript"></script>
+
+            <link href="/summernote/summernote-lite.css" rel="stylesheet"/>
+
+            <script src="/sprout/js/pages/edit.js" type="text/javascript"></script>
+            <script src="/sprout/js/util.js" type="text/javascript"></script>
+
+            <link href="/sprout/css/pages/board.css" rel="stylesheet"/>
+            <link href="/sprout/css/pages/edit.css" rel="stylesheet"/>
+        </privateResources>
+    </head>
+
+    <body>
+        <page class="page column overflow">
+            <div class="boardName">
+            <span th:text="${postEditDto.boardName}"
+                  th:onclick="|location.href='@{/board/{boardName} (boardName= ${postEditDto.boardName})}'|"></span>
+            </div>
+
+            <form th:action="@{/post/{postId}/edit (postId = ${postEditDto.postId})}"
+                  method="post"
+                  class="column overflow"
+                  enctype="multipart/form-data">
+
+                <input type="hidden" th:field="${postEditDto.boardName}" th:value="${boardName}"/>
+
+                <div th:if="${postEditDto.userType == 0}" class="userInfoInput row">
+                    <input type="text" th:field="${postEditDto.author}" th:placeholder="#{name}"/>
+                    <input type="password" th:id="pw" th:name="pw" th:placeholder="#{pw}" th:value="${pw}"/>
+                </div>
+
+                <div th:unless="${postEditDto.userType == 0}" class="userInfoInput row">
+                    <input id="author" type="text" th:field="${postEditDto.author}" th:placeholder="#{name}"/>
+                </div>
+
+                <input id="subject" type="text" th:field="${postEditDto.subject}" th:placeholder="#{subject}"
+                       th:value="${postEditDto.subject}" autofocus/>
+
+                <textarea id="summernote" th:field="${postEditDto.text}" name="body"
+                          th:placeholder="#{text}"></textarea>
+
+                <div class="fileInputWrapper">
+                    <label for="fileInput" class="fileAddButton column">Choose Files</label>
+                    <input id="fileInput" class="fileInput" type="file" name="multipartFileList"
+                           multiple onchange="fileSelectionButton()"/>
+                </div>
+
+                <div class="fileBox column">
+                    <div class="line row" th:each="attachedFile : ${attachedFileList}">
+                        <div th:id="${attachedFile.savedFileName}" class="line row">
+                            <div class="fileName" th:text="${attachedFile.oriFileName}"></div>
+                            <button type="button" class="deleteButton"
+                                    th:onclick="addDeleteFileList([[${attachedFile.savedFileName}]])">X
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row newPostButtonSet">
+                    <button class="backButton" type="button" th:text="#{back}"
+                            th:onclick="|location.href='@{/board/{boardName} (boardName= ${postEditDto.boardName})}'|">
+                        Back
+                    </button>
+                    <button class="newPostSubmitButton" type="submit" th:text="#{submit}">Submit
+                    </button>
+                </div>
+
+                <div class="deleteFileList">
+                </div>
+            </form>
+        </page>
+    </body>
+</html>

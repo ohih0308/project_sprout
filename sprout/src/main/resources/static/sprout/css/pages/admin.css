@@ -1,0 +1,234 @@
+.leftArrowWrapper {
+    padding: 10px 0 10px 10px;
+
+    justify-content: start;
+    align-items: center;
+
+    height: 20px;
+
+    font-size: 1.5rem;
+}
+
+.leftArrow {
+    height: 15px;
+    transition: 0.1s;
+}
+
+.leftArrow:hover {
+    height: 20px;
+}
+
+
+.categoryCard, .boardCard, .eventCard, .notificationCard, .adCard {
+    display: none;
+
+    padding: 10px;
+
+    width: 370px;
+
+    background-color: rgba(230, 230, 230);
+
+    border-radius: 10px;
+}
+
+.configSection {
+    height: calc(100% - 40px);
+}
+
+.configSideBar {
+    margin-right: 10px;
+    padding: 10px;
+
+    width: calc(200px - 10px - 20px - 6px);
+
+    border: 3px solid rgba(230, 230, 230);
+
+    border-radius: 10px;
+}
+
+.configNav {
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    height: 100px;
+
+
+    font-size: 1.2rem;
+
+    transition: 0.2s;
+}
+
+.configNav:hover {
+    font-weight: bold;
+
+    font-size: 1.3rem;
+    letter-spacing: 1px;
+}
+
+
+.configBody {
+    justify-content: center;
+    align-items: center;
+
+    width: calc(100% - 200px);
+}
+
+.categorySection {
+    padding: 10px;
+}
+
+.cardHead {
+    justify-content: center;
+    align-items: center;
+
+    padding: 5px;
+    height: 40px;
+
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.createCategorySection, .createBoardSection {
+    border-bottom: 3px double black;
+}
+
+.categoryRow, .boardRow {
+    justify-content: space-evenly;
+
+    height: 35px;
+}
+
+.categoryNameInput {
+    width: 200px;
+    font-size: 0.9rem;
+}
+
+.categoryRow > button, .boardRow > button {
+    width: 80px;
+
+    font-size: 0.9rem;
+}
+
+.categoryRow > select, .boardCategorySelection, #deleteBoardSelection {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+
+    padding: 5px;
+
+    width: 200px;
+    height: 35px;
+
+    font-size: 0.9rem;
+
+    background: url(http://localhost:8080/img/downwardArrow.png) no-repeat 95% 50%/ 15px auto;
+
+    border-radius: 5px;
+
+    transition: 0.1s;
+}
+
+.boardCategorySelection {
+    width: 100px;
+}
+
+.categoryRow > select:hover, .boardRow > select:hover {
+    border: 2px solid black;
+}
+
+.boardSection {
+    padding: 10px;
+}
+
+.boardNameInput {
+    width: 150px;
+    font-size: 0.9rem;
+}
+
+
+.eventListSection {
+    margin-bottom: 10px;
+}
+
+.event {
+    margin-bottom: 5px;
+    padding: 0 5px;
+
+    height: 20px;
+
+    justify-content: space-between;
+    align-items: center;
+
+    transition: 0.1s;
+}
+
+.event:hover {
+    height: 19px;
+    border-bottom: 1px solid black;
+}
+
+.eventName {
+    margin-right: 10px;
+}
+
+.deleteEventButton {
+    width: 15px;
+    height: 15px;
+}
+
+
+.field {
+    margin-bottom: 10px;
+    align-items: center;
+}
+
+.eventNameInput, .providerInput, .linkInput {
+    width: 100%;
+    height: 30px;
+
+    font-size: 0.8rem;
+}
+
+.multipartFile {
+    display: flex;
+
+    width: 100px;
+    height: 30px;
+
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 5px;
+
+    font-size: 0.9rem;
+
+    background-color: buttonface;
+}
+
+#multipartFile, #commercialFile {
+    position: absolute;
+    width: 0;
+    height: 0;
+    padding: 0;
+    overflow: hidden;
+    border: 0;
+}
+
+input {
+    font-size: 0.9rem;
+}
+
+.eventFile {
+    justify-content: space-between;
+}
+
+form > button {
+    margin-top: 10px;
+
+    width: 100%;
+
+    height: 30px;
+}
+

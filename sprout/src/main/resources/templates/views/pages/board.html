@@ -1,0 +1,98 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{/layout/layout :: layout(~{:: title}, ~{:: privateResources}, ~{:: page})}">
+    <head>
+        <title th:text="${boardName}">
+        </title>
+
+        <privateResources>
+            <script type="text/javascript" src="/sprout/js/pages/board.js"></script>
+            <link href="/sprout/css/pages/board.css" rel="stylesheet"/>
+        </privateResources>
+    </head>
+
+    <body>
+        <page class="page column overflow">
+            <div class="postWriteButtonWrapper row">
+                <button class="postWriteButton" type="button"
+                        th:onclick="|location.href='@{/post/write-form?boardName={boardName} (boardName=${boardName})}'|"
+                        th:text="#{WRITE}">
+                </button>
+            </div>
+
+            <div class="boardEventSection">
+                Board Event
+            </div>
+
+            <div class="boardName">
+            <span th:text="${boardName}"
+                  th:onclick="|location.href='@{/board/{boardName} (boardName= ${boardName})}'|"></span>
+            </div>
+
+            <div class="postList">
+                <div class="postHead row" th:each="post: ${postList}">
+                    <div class="postTitle"
+                         th:onclick="|location.href='@{/post/{postId} (postId= ${post.postId})}'|">
+                        <span th:text="${post.subject}"></span>
+                    </div>
+
+                    <div class="postInfo column">
+                        <div class="dateWrapper row">
+                            <img class="dateIcon" src="/img/clock.svg"/>
+                            <span class="date" th:text="${#dates.format(post.regDate, 'HH:mm')}"></span>
+                        </div>
+                        <div class="viewWrapper row">
+                            <img class="viewIcon" src="/img/eye.png"/>
+                            <span class="view" th:text="${post.views}"></span>
+                        </div>
+                    </div>
+
+                    <div class="userInfo row">
+                        <div class="userIconWrapper">
+                            <img class="userIcon fit" th:if="${post.savedFileName != null}"
+                                 th:src="@{/files/profileImages/{savedFileName}.{ext}
+                                     (savedFileName = ${post.savedFileName}, ext = ${post.ext})}"/>
+                            <img class="userIcon fit" th:unless="${post.savedFileName != null}"
+                                 th:src="@{/img/sprout.png}"/>
+                        </div>
+
+                        <div class="postAuthor">
+                            <a th:if="${post.userType != 0}" th:text="${post.author}"
+                               th:href="@{/my-page/{name} (name = ${post.author})}"></a>
+                            <span th:unless="${post.userType != 0}" th:text="${post.author}"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pagingWrapper row">
+                <div th:if="${paging.startPage >= paging.pages}" class="previous" th:text="#{<}">
+                </div>
+
+                <div th:each="page : ${#numbers.sequence(paging.startPage, paging.endPage)}" class="paging"
+                     th:data-value="${page}" th:text="${page+1}">
+                </div>
+
+                <div th:if="${paging.endPage < paging.totalPages - 1}" class="next" th:text="#{>}">
+                </div>
+            </div>
+
+            <div class="searchWrapper row">
+                <select class="searchFilter">
+                    <option th:value="displayName" th:text="#{name}">Name</option>
+                    <option th:value="subject" th:text="#{subject}">Title</option>
+                    <option th:value="text" th:text="#{text}">Body</option>
+                </select>
+
+                <input class="searchValue" type="text"/>
+
+                <button class="searchButton" type="button" th:text="#{search}">Search</button>
+            </div>
+
+            <form class="pageForm" th:action="@{/board/{boardName} (boardName = ${boardName})}" method="get">
+                <input type="hidden" class="presentPage" name="presentPage" th:value="0"/>
+                <input type="hidden" id="searchFilter" name="searchFilter" th:value="${search.searchFilter}"/>
+                <input type="hidden" id="searchValue" name="searchValue" th:value="${search.searchValue}"/>
+            </form>
+        </page>
+    </body>
+</html>

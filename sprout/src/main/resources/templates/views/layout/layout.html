@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:fragment="layout(title, privateResources, page)">
+
+    <head>
+        <meta charset="UTF-8">
+        <title th:replace="${title}">Title</title>
+
+        <!--  general  -->
+        <link href="/sprout/css/cssDef.css" rel="stylesheet"/>
+
+        <link href="/sprout/css/classNames.css" rel="stylesheet"/>
+        <link href="/sprout/css/layout/layout.css" rel="stylesheet"/>
+        <link href="/sprout/css/fragments/sideBar.css" rel="stylesheet"/>
+
+        <!--  private  -->
+        <link th:replace="${privateResources}"/>
+
+    </head>
+
+
+    <body>
+        <div class="container column">
+            <div class="main overflow row">
+                <div th:replace="~{/fragments/sideBar :: sideBar}"></div>
+
+                <div th:replace="${page}"></div>
+
+                <div class="adContainer row">
+                    <a class="adFile" th:each="adFile : ${adFileList}" th:href="@{{link} (link = ${adFile.link})}">
+                        <img th:src="@{/files/adFiles/{savedFileName}.{ext}
+                     (savedFileName = ${adFile.savedFileName}, ext = ${adFile.ext})}"/>
+                    </a>
+                </div>
+            </div>
+
+            <div class="sub">
+                <div th:replace="~{/fragments/footer :: footer}"></div>
+            </div>
+        </div>
+    </body>
+
+</html>

@@ -1,0 +1,155 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{/layout/layout :: layout(~{:: title}, ~{:: privateResources}, ~{:: page})}">
+    <head>
+        <title th:text="${boardName}">
+        </title>
+
+        <privateResources>
+            <script type="text/javascript" src="/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+            <script type="text/javascript" src="/sprout/js/util.js"></script>
+
+            <link rel="stylesheet" href="/sprout/css/pages/config.css"/>
+            <script type="text/javascript" src="/sprout/js/pages/config.js"></script>
+        </privateResources>
+    </head>
+
+    <body>
+        <page class="page">
+            <input id="owner" type="hidden" th:value="${owner}"/>
+
+            <div class="leftArrowWrapper row">
+                <img src="/img/left-arrow.png" class="leftArrow"
+                     th:onclick="|location.href='@{/my-page/{name} (name = ${name})}'|"/>
+            </div>
+
+            <div class="configSection row">
+                <div class="configSideBar">
+                    <div class="configNav userInfo"><span th:text="#{USER_INFO}"/></div>
+
+                    <div class="configNav editInfo"><span th:text="#{EDIT}"/></div>
+
+                    <div class="configNav deactivate"><span th:text="#{DEACTIVATE}"/></div>
+                </div>
+
+                <div class="configBody row">
+                    <div class="configCard userInfoCard column">
+                        <div class="cardHead row">
+                            <span>
+                            User Information
+                            </span>
+                        </div>
+
+                        <div class="cardBody">
+                            <div class="field" th:text="#{email}">Email</div>
+                            <div class="userInfoValue" th:text="${userInfo.email}"></div>
+
+                            <div class="field" th:text="#{name}">Name</div>
+                            <div class="userInfoValue" th:text="${userInfo.name}"></div>
+
+                            <div class="field" th:text="#{profileImage}">Profile Image</div>
+                            <div class="userInfoValue">
+                                <img class="profileImage" th:if="${userInfo.savedFileName != null}"
+                                     th:src="@{/files/profileImages/{savedFileName}.{ext}
+                                 (savedFileName = ${userInfo.savedFileName}, ext=${userInfo.ext})}"/>
+                                <img class="profileImage" th:unless="${userInfo.savedFileName != null}"
+                                     th:src="@{/img/sprout.png}"/>
+                            </div>
+
+                            <div class="field" th:text="#{REGISTER_DATE}">Register Date</div>
+                            <div class="userInfoValue" th:text="${#dates.format(userInfo.regDate, 'yyyy/MM/dd')}"></div>
+                        </div>
+
+                    </div>
+
+                    <div class="configCard editInfoCard column">
+                        <div class="cardBody">
+                            <div class="subTag">
+                                Account Configuration
+                            </div>
+                            <div class="accountConfig column">
+                                <div class="userInfoInput row">
+                                    <div class="userInfoType">Name</div>
+                                    <input class="name input nameInput" type="text"/>
+                                    <button class="nameUpdateButton submitButton" type="button"
+                                            th:text="#{CHANGE}"></button>
+                                </div>
+
+                                <div class="userInfoInput row">
+                                    <div class="userInfoType">Password</div>
+                                    <input class="pw input pwInput" type="password"/>
+                                    <button class="pwUpdateButton submitButton" type="button"
+                                            th:text="#{CHANGE}"></button>
+                                </div>
+
+                                <div class="userInfoInput row">
+                                    <div class="userInfoType">Profile Image</div>
+                                    <label for="profileImage" class="imageInput input row"><span
+                                            th:text="#{select}"></span></label>
+                                    <form id="profileImageForm" enctype="multipart/form-data">
+                                        <input id="profileImage" name="multipartFile" class="input" type="file"/>
+                                    </form>
+                                    <button class="profileImageUpdateButton submitButton" type="button"
+                                            th:text="#{CHANGE}"></button>
+                                </div>
+                            </div>
+
+                            <div class="subTag">
+                                Diary Configuration
+                            </div>
+                            <div class="diaryConfig column">
+                                <div class="userInfoInput row">
+                                    <div class="diaryConfigType" th:text="#{DIARY_ACTIVATION}">Diary Activation</div>
+                                    <div th:if="${diaryActivation}" class="diaryConfigInput row input">
+                                        <span th:text="#{ACTIVATE}"/>
+                                        <input name="diaryActivation" type="radio"
+                                               value="1" checked/>
+                                        <span th:text="#{DEACTIVATE}"/>
+                                        <input name="diaryActivation" type="radio"
+                                               value="0"/>
+                                    </div>
+
+                                    <div th:unless="${diaryActivation}" class="diaryConfigInput row input">
+                                        <span th:text="#{ACTIVATE}"/>
+                                        <input name="diaryActivation" type="radio"
+                                               value="1"/>
+                                        <span th:text="#{DEACTIVATE}"/>
+                                        <input name="diaryActivation" type="radio"
+                                               value="0" checked/>
+                                    </div>
+                                    <button class="diaryActivationSettingButton submitButton" type="button"
+                                            th:text="#{CHANGE}"></button>
+                                </div>
+
+                                <!--                                <div class="userInfoInput row">-->
+                                <!--                                    <div class="diaryConfigType" th:text="#{PUBLIC_DIARY}">Diary Private Write-->
+                                <!--                                    </div>-->
+                                <!--                                    <div class="diaryConfigInput input row">-->
+                                <!--                                        <span th:text="#{ACTIVATE}"/>-->
+                                <!--                                        <input name="privateWrite" type="radio"/>-->
+                                <!--                                        <span th:text="#{DEACTIVATE}"/>-->
+                                <!--                                        <input name="privateWrite" type="radio"/>-->
+                                <!--                                    </div>-->
+                                <!--                                    <button class="submitButton" type="button" th:text="#{CHANGE}"></button>-->
+                                <!--                                </div>-->
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="configCard deactivateCard column">
+                        <div class="cardHead row">
+                            <span th:text="#{DEACTIVATE}">
+                                Deactivate
+                            </span>
+                        </div>
+
+                        <div class="cardBody">
+                            <div class="deactivateButtonWrapper row">
+                                <button class="deactivateButton" type="button">Deactivate</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </page>
+    </body>
+</html>

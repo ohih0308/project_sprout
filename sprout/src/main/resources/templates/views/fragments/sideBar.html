@@ -1,0 +1,54 @@
+<div class="sideBar column" th:fragment="sideBar">
+    <div class="logoWrapper row">
+        <img class="logo" src="/img/sprout.png"/>
+        <div class="webName" th:text="#{webName}">
+        </div>
+    </div>
+
+
+    <div class="loginWrapper column" th:if="${session.loginMember == null}">
+        <div class="loginButtonWrapper row">
+            <button class="fit" th:onclick="|location.href='@{/user/login}'|" th:text="#{LOGIN}">Login</button>
+        </div>
+        <div class="registerButtonWrapper row">
+            <button class="fit" th:onclick="|location.href='@{/user/register}'|" th:text="#{REGISTER}">Register</button>
+        </div>
+    </div>
+
+    <div class="loginWrapper row" th:unless="${session.loginMember == null}">
+
+        <img th:if="${session.loginMember.savedFileName != null &&
+                session.loginMember.ext != null}"
+             class="profileImg" th:src="@{/files/profileImages/{savedFileName}.{ext}
+            (savedFileName = ${session.loginMember.savedFileName}, ext = ${session.loginMember.ext})}"/>
+
+        <img th:unless="${session.loginMember.savedFileName != null &&
+                session.loginMember.ext != null}"
+             class="profileImg" th:src="@{/img/empty.png}"/>
+
+        <div class="memberOption column">
+            <div class="name" th:text="${session.loginMember.name}"></div>
+            <a class="myPage" th:href="@{/my-page/{name} (name = ${session.loginMember.name})}" th:text="#{MY_PAGE}">My page</a>
+            <a class="logout" href="/user/logout" th:text="#{LOGOUT}">Log out</a>
+        </div>
+    </div>
+
+
+    <ul class="pageNav column">
+        <li class="nav" th:onclick="|location.href = '@{/}'|" th:text="#{HOME}">
+            HOME
+        </li>
+
+        <li class="nav" th:onclick="|location.href = '@{/board/list}'|" th:text="#{CATEGORY_LIST}">
+            CATEGORY LIST
+        </li>
+
+        <li class="nav" th:onclick="|location.href = '@{/chat}'|" th:text="#{CHAT}">
+            CHAT
+        </li>
+
+        <li class="nav" th:onclick="|location.href = '@{/support}'|" th:text="#{SUPPORT}">
+            SUPPORT
+        </li>
+    </ul>
+</div>

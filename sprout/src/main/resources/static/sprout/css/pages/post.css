@@ -1,0 +1,375 @@
+/* new post button*/
+.postWriteButtonWrapper {
+    justify-content: end;
+    align-items: center;
+
+    margin-bottom: 5px;
+
+    min-height: 20px;
+}
+
+.postWriteButton {
+    width: 120px;
+    height: 20px;
+
+    border: 1px solid rgba(230, 230, 230);;
+}
+
+
+/*board info*/
+.boardName {
+    margin: 0 0 5px 0;
+}
+
+
+/* board name*/
+.boardName {
+    display: flex;
+
+    align-items: center;
+
+    margin: 5px 0;
+    padding-left: 10px;
+    padding-bottom: 5px;
+
+    border-bottom: 5px black double;
+
+    min-height: 50px;
+
+    font-size: 2.5rem;
+}
+
+
+/*post*/
+.postHead {
+    margin-bottom: 5px;
+
+    min-height: 50px;
+}
+
+.postTitle {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+
+    padding-left: 10px;
+
+    width: calc(100% - 280px);
+    max-height: 50px;
+
+    font-size: 0.9rem;
+
+    border-radius: 5px;
+    border: 1px solid rgba(230, 230, 230);
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.postTitle > span {
+    display: flex;
+    align-items: center;
+    height: 90%;
+
+    overflow: scroll;
+    white-space: pre-wrap;
+
+    font-size: 1rem;
+}
+
+
+.viewIcon, .dateIcon {
+    margin-right: 5px;
+    padding: 3px;
+
+    width: 19px;
+    height: 19px;
+}
+
+.date, .view {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 3px;
+
+    width: 84px;
+    height: 19px;
+}
+
+.postInfo > .dateWrapper, .postInfo > .viewWrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 3px 5px 2px 5px;
+    height: 20px;
+
+    font-size: 0.7rem;
+}
+
+.postInfo, .userInfo {
+    margin-left: 5px;
+
+    width: 130px;
+
+    border-radius: 5px;
+    border: 1px solid rgba(230, 230, 230);
+}
+
+.userIconWrapper {
+    padding: 5px;
+
+    width: 40px;
+    height: 40px;
+
+
+}
+
+.postAuthor {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 5px;
+
+    width: 70px;
+}
+
+
+.postIndexWrapper {
+    margin: 5px 0;
+    padding: 5px 10px;
+
+    min-height: 15px;
+
+    font-size: 1.2rem;
+}
+
+.postBody {
+    display: inline-block;
+
+    margin: 5px 0;
+
+    padding: 10px;
+
+    max-height: fit-content;
+
+    word-wrap: break-word;
+
+    border: 1px solid rgba(230, 230, 230);
+    border-radius: 5px;
+}
+
+.body {
+    word-wrap: break-word;
+    min-height: 150px;
+}
+
+.reputationButtonSet {
+    margin: 5px 0;
+    padding: 0 calc((100% - 140px) * 0.5);
+
+    min-height: 50px;
+
+    border-bottom: 2px solid rgba(230, 230, 230);
+}
+
+.reputationWrapper {
+    margin: 0 20px;
+}
+
+.reputationIcon {
+    width: 30px;
+    height: 30px;
+}
+
+.reputation {
+    width: 30px;
+    height: 20px;
+
+    text-align: center;
+}
+
+.postButtonSet {
+    margin: 5px 0 10px 0;
+    padding-left: calc(100% - 170px);
+
+    min-height: 30px;
+}
+
+.postEditButton, .postDeleteButton {
+    width: 68px;
+    height: 28px;
+
+    border: 1px solid rgba(230, 230, 230);
+}
+
+.postEditButton {
+    margin-right: 30px;
+}
+
+
+/*new comment*/
+.newCommentForm {
+    padding: 10px;
+}
+
+.userInfoInput {
+    margin-bottom: 5px;
+
+    min-height: 25px;
+}
+
+.commentIdInput, .commentPwInput {
+    margin-right: 10px;
+
+    width: 150px;
+
+    border: 1px solid rgba(230, 230, 230);
+
+    font-size: 0.8rem;
+}
+
+.commentInput {
+    margin: 5px 0;
+    padding: 5px;
+
+    height: 110px;
+
+    border-radius: 5px;
+    resize: none;
+
+    border: 1px solid rgba(230, 230, 230);
+
+    font-size: 0.9rem;
+}
+
+.newCommentSaveButton {
+    margin: 5px 0 0 calc(100% - 70px);
+
+    width: 70px;
+    height: 30px;
+
+    border: 1px solid rgba(230, 230, 230);
+}
+
+
+/*comment list*/
+.totalCommentsCount {
+    margin: 20px 0 0 0;
+    padding: 5px;
+
+    min-height: 20px;
+}
+
+.comment {
+    margin: 5px 0;
+    padding: 10px;
+}
+
+.commentHead {
+    margin-bottom: 5px;
+    text-align: center;
+}
+
+.commentIndex {
+    margin-right: 5px;
+
+    width: 50px;
+
+    font-size: 0.8rem;
+
+    border: 1px solid rgba(230, 230, 230);
+
+    border-radius: 5px;
+}
+
+.commentAuthor {
+    margin: 0 5px;
+
+    width: 85px;
+
+    font-size: 0.8rem;
+
+    border: 1px solid rgba(230, 230, 230);
+    border-radius: 5px;
+}
+
+.commentDate {
+    margin-left: 5px;
+
+    width: 130px;
+
+    font-size: 0.8rem;
+
+    border: 1px solid rgba(230, 230, 230);
+    border-radius: 5px;
+}
+
+.commentBody {
+    margin: 5px 0;
+    padding: 5px;
+
+    border: 1px solid rgba(230, 230, 230);
+    border-radius: 5px;
+}
+
+.commentDeleteButton {
+    margin-left: calc(100% - 285px);
+    width: 15px;
+    height: 15px;
+
+    border: 1px solid rgba(230, 230, 230);
+}
+
+.commentPaging {
+    justify-content: center;
+    align-items: center;
+
+    margin: 5px 0;
+
+    min-height: 30px;
+
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+}
+
+.paging {
+    margin: 0 3px;
+    transition: 0.1s;
+}
+
+.paging:hover {
+    font-size: 1.2rem;
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+
+.fileList {
+    margin: 10px 0px 0 0;
+}
+
+.file {
+    margin: 0 5px;
+}
+
+.files {
+    padding: 5px;
+
+    flex-wrap: wrap;
+    word-break: normal;
+}
+
+.tag {
+    padding-left: 10px;
+
+    font-size: 1.1rem;
+    font-weight: bold;
+    border-bottom: 1px solid black;
+
+    background: rgba(230, 230, 230);
+}

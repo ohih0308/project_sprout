@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ohih.sprout.domain.file.fileMapper.FileMapper">
+
+
+    <!--  int saveProfileImage_db(FileDto fileDto);  -->
+    <insert id="saveProfileImage_db" parameterType="FileDto">
+        insert into profileImage (userId, oriFileName, savedFileName, size, ext)
+        values (#{id}, #{oriFileName}, #{savedFileName}, #{size}, #{ext});
+    </insert>
+
+    <!--  ProfileImage getProfileImageByUserId(Long userId);  -->
+    <select id="getProfileImageByUserId" parameterType="Long" resultType="FileDto">
+        select *
+        from profileImage
+        where userId = #{id};
+    </select>
+
+    <!--  int deleteProfileImageByUserId(Long userId);  -->
+    <delete id="deleteProfileImageByUserId" parameterType="Long">
+        delete
+        from profileImage
+        where userId = #{userId};
+    </delete>
+
+
+    <!--  int saveAttachedFile_db(FileDto fileDto);  -->
+    <insert id="saveAttachedFile_db" parameterType="FileDto">
+        insert into attachedFile (postId, oriFileName, savedFileName, ext, size, dir)
+        values (#{id}, #{oriFileName}, #{savedFileName}, #{ext}, #{size}, #{dir});
+    </insert>
+
+    <!--  List<AttachedFileDto> getAttachedFileListByPostId(Long postId);  -->
+    <select id="getAttachedFileListByPostId" parameterType="Long" resultType="FileDto">
+        select oriFileName, savedFileName, ext, size
+        from attachedFile
+        where postId = #{postId};
+    </select>
+
+    <!--  int deleteAttachedFile_dbBySavedFileName(String savedFileName);  -->
+    <delete id="deleteAttachedFile_dbBySavedFileName" parameterType="String">
+        delete
+        from attachedFile
+        where savedFileName = #{savedFileName};
+    </delete>
+
+    <!--  String getDirBySavedFileName(String savedFileName);  -->
+    <select id="getDirBySavedFileName" parameterType="String" resultType="String">
+        select dir
+        from attachedFile
+        where savedFileName = #{savedFileName};
+    </select>
+
+    <!--  int getAttachedFileCountByPostId(Long postId)  -->
+    <select id="getAttachedFileCountByPostId" parameterType="Long" resultType="Integer">
+        select count(*)
+        from attachedFile
+        where postId = #{postId};
+    </select>
+
+    <!--  String
+    (String savedFileName);  -->
+    <select id="getOriFileNameBySavedFileName" parameterType="String" resultType="String">
+        select oriFileName
+        from attachedFile
+        where savedFileName = #{savedFileName};
+    </select>
+
+    <!--  void deleteProfileImage_prj(Long userId);  -->
+    <delete id="deleteProfileImage_prj" parameterType="Long">
+        delete
+        from profileImage
+        where userId = #{userId};
+    </delete>
+
+    <!--  int saveEventFile_db(EventFileDto eventFileDto);  -->
+    <insert id="saveEventFile_db" parameterType="EventFileDto">
+        insert into eventFiles (eventName, oriFileName, savedFileName, ext, size, link)
+        values (#{eventName}, #{oriFileName}, #{savedFileName}, #{ext}, #{size}, #{link});
+    </insert>
+
+    <!--  int saveAdFile_db(AdFileDto adFileDto);  -->
+    <insert id="saveAdFile_db" parameterType="AdFileDto">
+        insert into adFiles (provider, oriFileName, savedFileName, ext, size, regDate, link)
+        values (#{provider}, #{oriFileName}, #{savedFileName}, #{ext}, #{size}, now(), #{link});
+    </insert>
+
+    <!--  List<EventFileDto> getEventFileList();  -->
+    <select id="getEventFileList" resultType="EventFileDto">
+        select *
+        from eventFiles;
+    </select>
+
+    <!--  List<AdFileDto> getAdFileList();  -->
+    <select id="getAdFileList" resultType="AdFileDto">
+        select *
+        from adFiles;
+    </select>
+
+    <!--  int deleteEventFile(String savedFileName);  -->
+    <delete id="deleteEventFile" parameterType="String">
+        delete
+        from eventFiles
+        where savedFileName = #{savedFileName};
+    </delete>
+</mapper>
